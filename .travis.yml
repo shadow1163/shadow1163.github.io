@@ -14,7 +14,7 @@ deploy:
   # token is set in travis-ci.org dashboard
   github_token: $GITHUB_API_KEY
   on:
-    branch: master
+    branch: hugo
   local_dir: public
   repo: shadow1163/shadow1163.github.io
   target_branch: master
