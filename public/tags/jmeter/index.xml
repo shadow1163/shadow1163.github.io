@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>jmeter on Shadow1163&#39;s Blog</title>
-    <link>http://shadow1163.github.io/tags/jmeter/</link>
+    <link>https://shadow1163.github.io/tags/jmeter/</link>
     <description>Recent content in jmeter on Shadow1163&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 20 Jul 2018 15:13:04 +0800</lastBuildDate>
     
-	<atom:link href="http://shadow1163.github.io/tags/jmeter/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://shadow1163.github.io/tags/jmeter/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>jmeter 4.0 distributed testing with docker</title>
-      <link>http://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</link>
+      <link>https://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</link>
       <pubDate>Fri, 20 Jul 2018 15:13:04 +0800</pubDate>
       
-      <guid>http://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</guid>
+      <guid>https://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</guid>
       <description>Jmeter支持分布式测试，所以打算用docker来部署Master和Slave测试一下。在Master/Client下映射一个控制端口，在Slave/Server下映射两个端口。
  client.rmi.localport=60000 Server_port=1099 server.rmi.localport=50000  Jmeter base dockerfile 首先构建一个Jmeter的基础镜像。Master和Slave基于基础镜像再构建。基础镜像的Dockerfile如下
 FROM ubuntu:18.04 MAINTAINER shadow1163 (674602286@qq.com) RUN apt-get update &amp;amp;&amp;amp; apt-get install -y curl openjdk-8-jdk openjfx ARG JMETER_VERSION=4.0 RUN curl http://mirror.bit.edu.cn/apache//jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz -o /opt/jmeter.tgz &amp;amp;&amp;amp; cd /opt &amp;amp;&amp;amp; tar zxf jmeter.tgz &amp;amp;&amp;amp; rm -f /opt/jmeter.tgz ENV JMETER_HOME /opt/apache-jmeter-$JMETER_VERSION/ ENV PATH $JMETER_HOME/bin:$PATH Jmeter Master dockerfile 基于基础镜像构造Master
@@ -25,10 +25,10 @@ FROM jmeter-wgbase MAINTAINER shadow1163 (674602286@qq.com) # Ports to be expose
     
     <item>
       <title>Apache Jmeter 入门</title>
-      <link>http://shadow1163.github.io/post/2018-02-24-jmeter-intro/</link>
+      <link>https://shadow1163.github.io/post/2018-02-24-jmeter-intro/</link>
       <pubDate>Sat, 24 Feb 2018 16:26:21 +0800</pubDate>
       
-      <guid>http://shadow1163.github.io/post/2018-02-24-jmeter-intro/</guid>
+      <guid>https://shadow1163.github.io/post/2018-02-24-jmeter-intro/</guid>
       <description>很早之前就听到过Jmeter，最近项目上需要用到Jmeter，就看了看相关的资料。
 简介 Apache JMeter 是100%纯JAVA桌面应用程序，被设计为用于测试CS结构的软件。 同时也可以用来测试静态和动态资源的性能，例如：静态文件，Java Servlets，CGI Scripts，Java Object，数据库和FTP服务器等等。JMeter可用于模拟大量负载来测试一台服务器，网络或者对象的健壮性或者分析不同负载下的整体性能.
 同时，JMeter可以帮助你对你的应用程序进行回归测试。通过你创建的测试脚本和assertions来验证你的程序返回了所期待的值。为了更高的适应性，JMeter允许你使用常规表达式来创建这些assertions. jmeter的未来： 随着开发人员借助它的可嵌入的结构，希望看到JMeter的能力也随之快速的被扩大。更进一步的主要发展目标是把JMeter在没有减弱它的负载测试的能力的同时尽可能的做成最有效的回归测试工具.

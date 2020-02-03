@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>KVM on Shadow1163&#39;s Blog</title>
-    <link>http://shadow1163.github.io/tags/kvm/</link>
+    <link>https://shadow1163.github.io/tags/kvm/</link>
     <description>Recent content in KVM on Shadow1163&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 25 Jul 2018 16:10:35 +0800</lastBuildDate>
     
-	<atom:link href="http://shadow1163.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://shadow1163.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>MacOS Mojave install on KVM</title>
-      <link>http://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</link>
+      <link>https://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</link>
       <pubDate>Wed, 25 Jul 2018 16:10:35 +0800</pubDate>
       
-      <guid>http://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</guid>
+      <guid>https://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</guid>
       <description>最近项目上需要在最新的MacOS 10.14上测试, 以前也在VMware ESXi上部署过MacOS 10.12，由于vmware unlocker宣布不在支持ESXi，找到另外一个KVM项目支持MacOS 10.14，那么就在KVM上部署试试吧。
 Install Clone source
 git clone https://github.com/kholia/OSX-KVM Install QEMU

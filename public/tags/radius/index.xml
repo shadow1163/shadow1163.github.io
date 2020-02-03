@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Radius on Shadow1163&#39;s Blog</title>
-    <link>http://shadow1163.github.io/tags/radius/</link>
+    <link>https://shadow1163.github.io/tags/radius/</link>
     <description>Recent content in Radius on Shadow1163&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 19 Jan 2018 15:08:50 +0800</lastBuildDate>
     
-	<atom:link href="http://shadow1163.github.io/tags/radius/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://shadow1163.github.io/tags/radius/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Freeradius 入门简介</title>
-      <link>http://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</link>
+      <link>https://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</link>
       <pubDate>Fri, 19 Jan 2018 15:08:50 +0800</pubDate>
       
-      <guid>http://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</guid>
+      <guid>https://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</guid>
       <description>最近项目上需要用到Radius认证，就找了点资料看看。这里有一本翻译的书可以看一下，很遗憾作者只翻译了4章，可以理解一下相关的概念。 https://freeradius.akagi201.org/ch00-intro/index.html 英文好的同学可以看看原著。 http://yustanto.com/freeradius.pdf
 安装 我的系统是ubuntu16.04的，使用apt安装的freeradius的版本是2.2.8,在我写这篇文章的时候官网上最新的relase版本是3.0.16。2.X的版本处于维护状态。需要安装最新版本的只能下载源码编译安装。另外需要注意的是openssl的版本，通过apt安装的版本是1.0.2g，最新版需要安装1.0.2h或者更新的版本。openssl同样也需要下载最新源码编译安装。freeradius 3.X不支持最新的openssl 1.1.0,如果要使用openssl 1.1.0，需要在github上下载freeradius 4.X的源码编译安装。
 wget https://www.openssl.org/source/openssl-1.0.2n.tar.gz tar zxf openssl-1.0.2n.tar.gz cd openssl-1.0.2n ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib/openssl-1.0 shared zlib-dynamic make depend make &amp;amp;&amp;amp; make install 安装完成后检查一下版本

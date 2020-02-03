@@ -1,4 +1,4 @@
-baseURL = "http://shadow1163.github.io/"
+baseURL = "https://shadow1163.github.io"
 languageCode = "en-us"
 title = "Shadow1163's Blog"
 disableKinds = ["section"]

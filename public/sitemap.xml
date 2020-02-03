@@ -3,157 +3,157 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://shadow1163.github.io/tags/kvm/</loc>
+    <loc>https://shadow1163.github.io/tags/kvm/</loc>
     <lastmod>2018-07-25T16:10:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</loc>
+    <loc>https://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</loc>
     <lastmod>2018-07-25T16:10:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/</loc>
+    <loc>https://shadow1163.github.io/</loc>
     <lastmod>2018-07-25T16:10:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/</loc>
+    <loc>https://shadow1163.github.io/tags/</loc>
     <lastmod>2018-07-25T16:10:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/ngrok/</loc>
+    <loc>https://shadow1163.github.io/tags/ngrok/</loc>
     <lastmod>2018-07-20T16:07:16+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-07-20-ngrok-intro/</loc>
+    <loc>https://shadow1163.github.io/post/2018-07-20-ngrok-intro/</loc>
     <lastmod>2018-07-20T16:07:16+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/tools/</loc>
+    <loc>https://shadow1163.github.io/tags/tools/</loc>
     <lastmod>2018-07-20T16:07:16+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/jmeter/</loc>
+    <loc>https://shadow1163.github.io/tags/jmeter/</loc>
     <lastmod>2018-07-20T15:13:04+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</loc>
+    <loc>https://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</loc>
     <lastmod>2018-07-20T15:13:04+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-07-12-openwrt-on-vmware-workstation-esxi/</loc>
+    <loc>https://shadow1163.github.io/post/2018-07-12-openwrt-on-vmware-workstation-esxi/</loc>
     <lastmod>2018-07-12T15:22:40+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/golang/</loc>
+    <loc>https://shadow1163.github.io/tags/golang/</loc>
     <lastmod>2018-05-04T14:48:53+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/httpstat/</loc>
+    <loc>https://shadow1163.github.io/tags/httpstat/</loc>
     <lastmod>2018-05-04T14:48:53+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-05-04-intro-httpstat/</loc>
+    <loc>https://shadow1163.github.io/post/2018-05-04-intro-httpstat/</loc>
     <lastmod>2018-05-04T14:48:53+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-03-23-gorouting-with-buffered-channel/</loc>
+    <loc>https://shadow1163.github.io/post/2018-03-23-gorouting-with-buffered-channel/</loc>
     <lastmod>2018-03-23T10:15:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-02-24-jmeter-intro/</loc>
+    <loc>https://shadow1163.github.io/post/2018-02-24-jmeter-intro/</loc>
     <lastmod>2018-02-24T16:26:21+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-01-31-ldap-samba-configuration/</loc>
+    <loc>https://shadow1163.github.io/post/2018-01-31-ldap-samba-configuration/</loc>
     <lastmod>2018-01-31T10:53:41+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/docker/</loc>
+    <loc>https://shadow1163.github.io/tags/docker/</loc>
     <lastmod>2018-01-26T15:57:16+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-01-26-dockerfile-password/</loc>
+    <loc>https://shadow1163.github.io/post/2018-01-26-dockerfile-password/</loc>
     <lastmod>2018-01-26T15:57:16+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/saml/</loc>
+    <loc>https://shadow1163.github.io/tags/saml/</loc>
     <lastmod>2018-01-24T13:37:49+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</loc>
+    <loc>https://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</loc>
     <lastmod>2018-01-24T13:37:49+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</loc>
+    <loc>https://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</loc>
     <lastmod>2018-01-20T18:09:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/fuchsia/</loc>
+    <loc>https://shadow1163.github.io/tags/fuchsia/</loc>
     <lastmod>2018-01-20T18:09:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/os/</loc>
+    <loc>https://shadow1163.github.io/tags/os/</loc>
     <lastmod>2018-01-20T18:09:34+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</loc>
+    <loc>https://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</loc>
     <lastmod>2018-01-19T15:08:50+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/radius/</loc>
+    <loc>https://shadow1163.github.io/tags/radius/</loc>
     <lastmod>2018-01-19T15:08:50+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</loc>
+    <loc>https://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</loc>
     <lastmod>2018-01-18T15:18:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/gomobile/</loc>
+    <loc>https://shadow1163.github.io/tags/gomobile/</loc>
     <lastmod>2018-01-18T15:18:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/tags/jenkins/</loc>
+    <loc>https://shadow1163.github.io/tags/jenkins/</loc>
     <lastmod>2018-01-17T15:41:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</loc>
+    <loc>https://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</loc>
     <lastmod>2018-01-17T15:41:38+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/post/jenkins-error/</loc>
+    <loc>https://shadow1163.github.io/post/jenkins-error/</loc>
     <lastmod>2018-01-16T14:17:50+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://shadow1163.github.io/categories/</loc>
+    <loc>https://shadow1163.github.io/categories/</loc>
   </url>
   
 </urlset>

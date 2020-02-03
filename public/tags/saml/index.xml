@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SAML on Shadow1163&#39;s Blog</title>
-    <link>http://shadow1163.github.io/tags/saml/</link>
+    <link>https://shadow1163.github.io/tags/saml/</link>
     <description>Recent content in SAML on Shadow1163&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 24 Jan 2018 13:37:49 +0800</lastBuildDate>
     
-	<atom:link href="http://shadow1163.github.io/tags/saml/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://shadow1163.github.io/tags/saml/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>SAMl2.0 简介</title>
-      <link>http://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</link>
+      <link>https://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</link>
       <pubDate>Wed, 24 Jan 2018 13:37:49 +0800</pubDate>
       
-      <guid>http://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</guid>
+      <guid>https://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</guid>
       <description>简介 {% blockquote %} SAML(Security Assertion Markup Language) 安全断言标记语言是由标识化组织 OASIS 提出的用于安全互操作的标准。SAML 是一个 XML 框架，由一组协议组成，用来传输安全声明。SAML 获得了广泛的行业认可，并被诸多主流厂商所支持。SAML 的初始版本 1.0 最初于 2002 年发布，发展数年后，于 2005 年推出 SAML 2.0。实际上，SAML 2.0 是由三个原有的认证联邦标准：SAML1.1，ID-FF (Identity Federation Framework) 1.2 和 Shibboleth 构成。 {% endblockquote %}
 SAML在单点登录中大有用处：在SAML协议中，一旦用户身份被主网站（身份鉴别服务器，Identity Provider，IDP）认证过后，该用户再去访问其他在主站注册过的应用（服务提供者，Service Providers，SP）时，都可以直接登录，而不用再输入身份和口令。
 SAML协议的核心是: IDP和SP通过用户的浏览器的重定向访问来实现交换数据。  SAML基本原理 SAML将所有与检索、传输和共享安全信息相关的功能标准化为以下形式：
