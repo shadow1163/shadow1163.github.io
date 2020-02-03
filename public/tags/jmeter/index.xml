@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jmeter on Shadow1163&#39;s Blog</title>
+    <link>http://shadow1163.github.io/tags/jmeter/</link>
+    <description>Recent content in jmeter on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Jul 2018 15:13:04 +0800</lastBuildDate>
+    
+	<atom:link href="http://shadow1163.github.io/tags/jmeter/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jmeter 4.0 distributed testing with docker</title>
+      <link>http://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</link>
+      <pubDate>Fri, 20 Jul 2018 15:13:04 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</guid>
+      <description>Jmeter支持分布式测试，所以打算用docker来部署Master和Slave测试一下。在Master/Client下映射一个控制端口，在Slave/Server下映射两个端口。
+ client.rmi.localport=60000 Server_port=1099 server.rmi.localport=50000  Jmeter base dockerfile 首先构建一个Jmeter的基础镜像。Master和Slave基于基础镜像再构建。基础镜像的Dockerfile如下
+FROM ubuntu:18.04 MAINTAINER shadow1163 (674602286@qq.com) RUN apt-get update &amp;amp;&amp;amp; apt-get install -y curl openjdk-8-jdk openjfx ARG JMETER_VERSION=4.0 RUN curl http://mirror.bit.edu.cn/apache//jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz -o /opt/jmeter.tgz &amp;amp;&amp;amp; cd /opt &amp;amp;&amp;amp; tar zxf jmeter.tgz &amp;amp;&amp;amp; rm -f /opt/jmeter.tgz ENV JMETER_HOME /opt/apache-jmeter-$JMETER_VERSION/ ENV PATH $JMETER_HOME/bin:$PATH Jmeter Master dockerfile 基于基础镜像构造Master
+FROM jmeter-wgbase MAINTAINER shadow1163 (674602286@qq.com) # Ports to be exposed from the container for JMeter Master EXPOSE 60000 Jmeter Slave dockerfile 基于基础镜像构造Slave</description>
+    </item>
+    
+    <item>
+      <title>Apache Jmeter 入门</title>
+      <link>http://shadow1163.github.io/post/2018-02-24-jmeter-intro/</link>
+      <pubDate>Sat, 24 Feb 2018 16:26:21 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-02-24-jmeter-intro/</guid>
+      <description>很早之前就听到过Jmeter，最近项目上需要用到Jmeter，就看了看相关的资料。
+简介 Apache JMeter 是100%纯JAVA桌面应用程序，被设计为用于测试CS结构的软件。 同时也可以用来测试静态和动态资源的性能，例如：静态文件，Java Servlets，CGI Scripts，Java Object，数据库和FTP服务器等等。JMeter可用于模拟大量负载来测试一台服务器，网络或者对象的健壮性或者分析不同负载下的整体性能.
+同时，JMeter可以帮助你对你的应用程序进行回归测试。通过你创建的测试脚本和assertions来验证你的程序返回了所期待的值。为了更高的适应性，JMeter允许你使用常规表达式来创建这些assertions. jmeter的未来： 随着开发人员借助它的可嵌入的结构，希望看到JMeter的能力也随之快速的被扩大。更进一步的主要发展目标是把JMeter在没有减弱它的负载测试的能力的同时尽可能的做成最有效的回归测试工具.
+安装  从 http://jmeter.apache.org/ 下载最新版本的JMeter，解压文件到你的工作目录。 安装JAVA，配置好JAVA_HOME JMeter可运行在Windows系统，类Unix的系统。  注意JMeter的目录不能空格。
+运行 进入JMeter的安装目录下的bin目录，运行jmeter.bat(windows)或jmeter.sh(类Unix)。 打开JMeter的主界面如下：
+在JMeter4.0里取消了工作台，相关的功能合并到了测试计划里了。 右键单击&amp;quot;Test Plan&amp;quot;弹出菜单选择添加线程组：
+然后设置线程组的相关属性。
+右键单击线程组，添加http request
+录制 除了手动添加测试组件，还可以使用脚本录制的方法生成测试脚本。
+ 添加线程组 添加http request defaults设置默认的URL 添加录制控制器 添加http代理服务器 打开http代理服务器 把浏览器的代理服务器设置为之前配置的代理  分布式 在使用Jmeter进行性能测试时，如果并发数比较大(比如最近项目需要支持1000并发)，单台电脑的配置(CPU和内存)可能无法支持，这时可以使用Jmeter提供的分布式测试的功能。
+Slave 在主机上安装同版本的jmeter，然后执行jmeter-server.bat(windows)或jmeter-server.sh(类unix)。启动成功后如下： {% asset_img slave.png %}
+Master 找到Jmeter的bin目录下jmeter.properties文件，修改如下配置，IP和Port是slave机的IP以及自定义的端口
+remote_hosts=127.0.0.1,10.2.2.3，10.1.1.4 添加之后就可以选择远程执行了 {% asset_img remote-host.png %}</description>
+    </item>
+    
+  </channel>
+</rss>

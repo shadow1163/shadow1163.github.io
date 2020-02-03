@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html><head>
+<title>jmeter 4.0 distributed testing with docker</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="http://shadow1163.github.io/scss/journal.scss" integrity="" media="screen">
+
+<script src="http://shadow1163.github.io//js/loadCSS.js"></script>
+<script src="http://shadow1163.github.io//js/table.js"></script>
+
+
+<script src="http://shadow1163.github.io//js/toc.js"></script>
+
+
+<script>
+    loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: 'your client id',
+  clientSecret: 'your client secret',
+  repo: 'repo name',
+  owner: 'user',
+  admin: ['user'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://shadow1163.github.io/">
+    
+        <div class="nav-title">
+            Shadow1163&#39;s Blog
+        </div>
+        
+        <div class="nav-subtitle">
+            Themed by Diary.
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/tags">
+                    Tags
+                </a>
+        
+            
+                
+                
+                <a class="a-block nav-link-item false" href="/categories">
+                    Categories
+                </a>
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+&copy;
+	
+	2018 Shadow1163&#39;s Blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#jmeter-base-dockerfile" v-on:click="closeDrawer" id="jmeter-base-dockerfile-nav">
+										 Jmeter base dockerfile
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#jmeter-master-dockerfile" v-on:click="closeDrawer" id="jmeter-master-dockerfile-nav">
+										 Jmeter Master dockerfile
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#jmeter-slave-dockerfile" v-on:click="closeDrawer" id="jmeter-slave-dockerfile-nav">
+										 Jmeter Slave dockerfile
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#testing" v-on:click="closeDrawer" id="testing-nav">
+										 Testing
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#disable-rmi-keystore" v-on:click="closeDrawer" id="disable-rmi-keystore-nav">
+										 Disable RMI Keystore
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#secure-our-channel" v-on:click="closeDrawer" id="secure-our-channel-nav">
+										 Secure our channel
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/tags">
+                        Tags
+                    </a>
+            
+                
+                    
+                    
+                    <a class="a-block drawer-menu-item false" href="/categories">
+                        Categories
+                    </a>
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#jmeter-base-dockerfile" v-on:click="closeDrawer" id="jmeter-base-dockerfile-nav">
+										 Jmeter base dockerfile
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#jmeter-master-dockerfile" v-on:click="closeDrawer" id="jmeter-master-dockerfile-nav">
+										 Jmeter Master dockerfile
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#jmeter-slave-dockerfile" v-on:click="closeDrawer" id="jmeter-slave-dockerfile-nav">
+										 Jmeter Slave dockerfile
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#testing" v-on:click="closeDrawer" id="testing-nav">
+										 Testing
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#disable-rmi-keystore" v-on:click="closeDrawer" id="disable-rmi-keystore-nav">
+										 Disable RMI Keystore
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#secure-our-channel" v-on:click="closeDrawer" id="secure-our-channel-nav">
+										 Secure our channel
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="http://shadow1163.github.io/">
+            Shadow1163&#39;s Blog
+        </a>
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://shadow1163.github.io/">
+        <div class="single-column-header-title">Shadow1163&#39;s Blog</div>
+        
+        <div class="single-column-header-subtitle">Themed by Diary.</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('/')">
+                <div class="post-title">
+                    jmeter 4.0 distributed testing with docker
+                    <div class="post-meta">
+                        <time itemprop="datePublished">
+                            2018-07-20 15:13
+                        </time>
+
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/jmeter">jmeter</a>
+                                &nbsp;
+                            
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>Jmeter支持分布式测试，所以打算用docker来部署Master和Slave测试一下。在Master/Client下映射一个控制端口，在Slave/Server下映射两个端口。</p>
+<ul>
+<li>client.rmi.localport=60000</li>
+<li>Server_port=1099</li>
+<li>server.rmi.localport=50000</li>
+</ul>
+<h2 id="jmeter-base-dockerfile">Jmeter base dockerfile</h2>
+<p>首先构建一个Jmeter的基础镜像。Master和Slave基于基础镜像再构建。基础镜像的Dockerfile如下</p>
+<pre><code>FROM ubuntu:18.04
+
+MAINTAINER shadow1163 (674602286@qq.com)
+
+RUN apt-get update &amp;&amp; apt-get install -y curl openjdk-8-jdk openjfx
+
+ARG JMETER_VERSION=4.0
+
+RUN curl http://mirror.bit.edu.cn/apache//jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz -o /opt/jmeter.tgz &amp;&amp; cd /opt &amp;&amp; tar zxf jmeter.tgz &amp;&amp; rm -f /opt/jmeter.tgz
+
+ENV JMETER_HOME /opt/apache-jmeter-$JMETER_VERSION/
+
+ENV PATH $JMETER_HOME/bin:$PATH
+</code></pre><h2 id="jmeter-master-dockerfile">Jmeter Master dockerfile</h2>
+<p>基于基础镜像构造Master</p>
+<pre><code>FROM jmeter-wgbase
+MAINTAINER shadow1163 (674602286@qq.com)
+# Ports to be exposed from the container for JMeter Master
+EXPOSE 60000
+</code></pre><h2 id="jmeter-slave-dockerfile">Jmeter Slave dockerfile</h2>
+<p>基于基础镜像构造Slave</p>
+<pre><code>FROM jmeter-wgbase
+MAINTAINER shadow1163 (674602286@qq.com)
+# Ports to be exposed from the container for JMeter Master
+EXPOSE 1099 50000
+ENTRYPOINT $JMETER_HOME/bin/jmeter-server -Dserver.rmi.localport=50000 -Dserver_port=1099 -Jserver.rmi.ssl.disable=true
+</code></pre><h2 id="testing">Testing</h2>
+<p>在Jmeter 4.0里，client和server的连接默认开启了RMI keystore. 有两个解决办法</p>
+<ul>
+<li>关闭RMI keystore</li>
+<li>生成一个RMI keystore 文件，并应用于Jmeter</li>
+</ul>
+<h3 id="disable-rmi-keystore">Disable RMI Keystore</h3>
+<p>在启动的命令行加上&rdquo;-Jserver.rmi.ssl.disable=true&quot;即可。可以看到Slave的dockerfile里，就是采用的这种方式, Master上也需要加上同样的参数。</p>
+<h3 id="secure-our-channel">Secure our channel</h3>
+<p>到Jmeter的执行目录下，执行create-rmi-keystore命令，生成rmi_keystore.jks文件。在启动Container时，把这个文件添加进去。</p>
+<ul>
+<li>Slave/server端添加参数-Jserver.rmi.ssl.keystore.file=${jmeter_path}/rmi_keystore.jks</li>
+<li>Master/client端添加参数-Jserver.rmi.ssl.keystore.file=${jmeter_path}/rmi_keystore.jks</li>
+</ul>
+
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2018-07-20</p>
+                </div>
+                
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="http://shadow1163.github.io/post/2018-07-20-ngrok-intro/">
+                    Next<br>ngrok intro
+                </a>
+                
+                
+                
+                <a class="older-posts" href="http://shadow1163.github.io/post/2018-07-12-openwrt-on-vmware-workstation-esxi/">
+                    Previous<br>openwrt on vmware workstation &amp; ESXi
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+&copy;
+	
+	2018 Shadow1163&#39;s Blog
+	</div>
+    	</div>
+    <script src="http://shadow1163.github.io//js/journal.js"></script>
+    </body>
+</html>

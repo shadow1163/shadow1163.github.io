@@ -1,11 +1,13 @@
-baseURL = "http://shadow1163.github.io/"
+baseURL = "http://example.org/"
 languageCode = "en-us"
-title = "Shadow1163's Blog"
+title = "A Hugo Site"
+copyright = "This is a customized copyright."
 disableKinds = ["section"]
 theme = "diary"
+# googleAnalytics = "UA-123-45"
 
 [params]
-subtitle = "Have Fun"
+subtitle = "Themed by Diary."
 enableGitalk = true
 
 [params.gitalk]

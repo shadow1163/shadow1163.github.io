@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Shadow1163&#39;s Blog</title>
+    <link>http://shadow1163.github.io/post/</link>
+    <description>Recent content in Posts on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Jul 2018 16:10:35 +0800</lastBuildDate>
+    
+	<atom:link href="http://shadow1163.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MacOS Mojave install on KVM</title>
+      <link>http://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</link>
+      <pubDate>Wed, 25 Jul 2018 16:10:35 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</guid>
+      <description>最近项目上需要在最新的MacOS 10.14上测试, 以前也在VMware ESXi上部署过MacOS 10.12，由于vmware unlocker宣布不在支持ESXi，找到另外一个KVM项目支持MacOS 10.14，那么就在KVM上部署试试吧。
+Install Clone source
+git clone https://github.com/kholia/OSX-KVM Install QEMU
+sudo apt-get install qemu uml-utilities libguestfs-tools # First edit /etc/apt/sources.list to add/uncomment deb-src lines sudo apt-get update sudo apt-get build-dep qemu git clone https://github.com/kholia/qemu.git cd qemu git checkout macOS git submodule init git submodule update --recursive ./configure --prefix=/home/$(whoami)/QEMU --target-list=x86_64-softmmu --audio-drv-list=pa $ make clean; make -j8; make install 在编译的时候有可能报错，&amp;ldquo;error: static declaration of memfd_create follows non-static declaration&amp;rdquo;, 可参考这个补丁。</description>
+    </item>
+    
+    <item>
+      <title>ngrok intro</title>
+      <link>http://shadow1163.github.io/post/2018-07-20-ngrok-intro/</link>
+      <pubDate>Fri, 20 Jul 2018 16:07:16 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-07-20-ngrok-intro/</guid>
+      <description>最近做Jenkins和Github的集成，计划是收到一个代码的Push就执行一次测试。但是同时遇到一个问题，由于Jenkins没有设置公有IP，导致了Github上设置的webhook无法跟Jenkins通信。在无法设置公有IP的情况下，通过一个小工具来解决这个问题。这个工具叫ngrok。官网：https://ngrok.com/ 。
+下载登录 进入官网后，注册或者通过社交账号登录都可以，下载ngrok，解压后执行：
+./ngrok authtoken &amp;lt;your Auth code&amp;gt; 开启 在连接之后，就可以开始使用了。
+./ngrok help ./ngrok http 80 执行第二条命令会看到如下格式的记录
+Forwarding http://xxxxxxxx.ngrok.io -&amp;gt; 127.0.0.1:80 这个网址就可以放在github的webhook中，通过这个网址就可以和本地80端口通信了。
+Automation ngrok -log=stdout 80 &amp;gt; /dev/null &amp;amp; curl localhost:4040/api/tunnels 这两条命令是后台启动ngrok, 使用API获取转换域名。</description>
+    </item>
+    
+    <item>
+      <title>jmeter 4.0 distributed testing with docker</title>
+      <link>http://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</link>
+      <pubDate>Fri, 20 Jul 2018 15:13:04 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-07-20-jmeter-4-0-distributed-testing-with-docker/</guid>
+      <description>Jmeter支持分布式测试，所以打算用docker来部署Master和Slave测试一下。在Master/Client下映射一个控制端口，在Slave/Server下映射两个端口。
+ client.rmi.localport=60000 Server_port=1099 server.rmi.localport=50000  Jmeter base dockerfile 首先构建一个Jmeter的基础镜像。Master和Slave基于基础镜像再构建。基础镜像的Dockerfile如下
+FROM ubuntu:18.04 MAINTAINER shadow1163 (674602286@qq.com) RUN apt-get update &amp;amp;&amp;amp; apt-get install -y curl openjdk-8-jdk openjfx ARG JMETER_VERSION=4.0 RUN curl http://mirror.bit.edu.cn/apache//jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz -o /opt/jmeter.tgz &amp;amp;&amp;amp; cd /opt &amp;amp;&amp;amp; tar zxf jmeter.tgz &amp;amp;&amp;amp; rm -f /opt/jmeter.tgz ENV JMETER_HOME /opt/apache-jmeter-$JMETER_VERSION/ ENV PATH $JMETER_HOME/bin:$PATH Jmeter Master dockerfile 基于基础镜像构造Master
+FROM jmeter-wgbase MAINTAINER shadow1163 (674602286@qq.com) # Ports to be exposed from the container for JMeter Master EXPOSE 60000 Jmeter Slave dockerfile 基于基础镜像构造Slave</description>
+    </item>
+    
+    <item>
+      <title>openwrt on vmware workstation &amp; ESXi</title>
+      <link>http://shadow1163.github.io/post/2018-07-12-openwrt-on-vmware-workstation-esxi/</link>
+      <pubDate>Thu, 12 Jul 2018 15:22:40 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-07-12-openwrt-on-vmware-workstation-esxi/</guid>
+      <description>最近需要一个搭一个DHCP server，所有的主机都放在了一台很老的DELL服务器上搭建的ESXi主机上，资源相对很少，想到之前用过的openwrt比较适合这种场景。我的ESXi的版本是6.5，应该是向前兼容的。
+首先在官网上下载img文件，然后解压缩，转换为VMDK格式的文件。
+gunzip openwrt-x86-generic-combined-ext4.img.gz qemu-img convert -f raw -O vmdk openwrt-x86-generic-combined-ext4.img openwrt-x86-generic-combined-ext4.vmdk 如果没有qemu-img，记得先安装。
+接下来就是把vmdk文件上传到ESXi服务器的磁盘里，最好是创建一个单独的文件夹来存放。 然后创建一个32bit的主机，设置好处理器个数和内存，然后删除自动创建的磁盘，添加一个已存在的磁盘，文件设置为你上传的文件。磁盘的类型最好设置为IDE，网卡的类型为E1000。设置好之后，启动主机就可以看到openwrt可以正常运行了。
+Refer to: https://wiki.openwrt.org/doc/howto/vmware</description>
+    </item>
+    
+    <item>
+      <title>httpstat – A Curl Statistics Tool to Check Website Performance</title>
+      <link>http://shadow1163.github.io/post/2018-05-04-intro-httpstat/</link>
+      <pubDate>Fri, 04 May 2018 14:48:53 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-05-04-intro-httpstat/</guid>
+      <description>The httpstat is a tool that reflects curl statistics in a fascinating and well-defined way.
+Install The httpstat has been implemented by golang or python.
+Install by python  Get it directly from its github repo using the wget commands as follows:  wget -c https://raw.githubusercontent.com/reorx/httpstat/master/httpstat.py  Using pip like this  sudo -H pip install httpstat Install by golang Notice httpstat requires Go 1.7.1 or later
+Install it like this</description>
+    </item>
+    
+    <item>
+      <title>Golang 并发定量协程数量</title>
+      <link>http://shadow1163.github.io/post/2018-03-23-gorouting-with-buffered-channel/</link>
+      <pubDate>Fri, 23 Mar 2018 10:15:12 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-03-23-gorouting-with-buffered-channel/</guid>
+      <description>最近需要用到golang做一个并发测试，之前大概看了一遍并发，对基本的流程有了一个了解了。我的需求是启动固定数量的客户端程序，然后等待程序运行完成后收集分析一下结果即可。参照网上的代码如下：
+package main import ( &amp;quot;fmt&amp;quot; ) func Afunction(ch chan int) { fmt.Println(&amp;quot;finish&amp;quot;) &amp;lt;-ch } func main() { ch := make(chan int, 10) for i := 0; i &amp;lt; 1000; i++ { ch &amp;lt;- 1 go Afunction(ch) } } 运行了一下感觉没问题就没仔细检查了。结果领导发现运行结果差10个，然后才来仔细看程序，在main函数中的for循环调用完函数后并不会阻塞等待被调用的函数执行完成。main函数退出后，并发的协程也会被自动回收，就导致了结果差10个。 解决的办法是在for循环后添加代码等待协程执行完成，然后退出。有两种方法。
+sync.WaitGroup package main import ( &amp;quot;fmt&amp;quot; &amp;quot;sync&amp;quot; ) var waitgroup sync.WaitGroup func Afunction(ch chan int) { fmt.Println(&amp;quot;finish&amp;quot;) &amp;lt;-ch waitgroup.Done() } func main() { ch := make(chan int, 10) for i := 0; i &amp;lt; 1000; i++ { ch &amp;lt;- 1 waitgroup.</description>
+    </item>
+    
+    <item>
+      <title>Apache Jmeter 入门</title>
+      <link>http://shadow1163.github.io/post/2018-02-24-jmeter-intro/</link>
+      <pubDate>Sat, 24 Feb 2018 16:26:21 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-02-24-jmeter-intro/</guid>
+      <description>很早之前就听到过Jmeter，最近项目上需要用到Jmeter，就看了看相关的资料。
+简介 Apache JMeter 是100%纯JAVA桌面应用程序，被设计为用于测试CS结构的软件。 同时也可以用来测试静态和动态资源的性能，例如：静态文件，Java Servlets，CGI Scripts，Java Object，数据库和FTP服务器等等。JMeter可用于模拟大量负载来测试一台服务器，网络或者对象的健壮性或者分析不同负载下的整体性能.
+同时，JMeter可以帮助你对你的应用程序进行回归测试。通过你创建的测试脚本和assertions来验证你的程序返回了所期待的值。为了更高的适应性，JMeter允许你使用常规表达式来创建这些assertions. jmeter的未来： 随着开发人员借助它的可嵌入的结构，希望看到JMeter的能力也随之快速的被扩大。更进一步的主要发展目标是把JMeter在没有减弱它的负载测试的能力的同时尽可能的做成最有效的回归测试工具.
+安装  从 http://jmeter.apache.org/ 下载最新版本的JMeter，解压文件到你的工作目录。 安装JAVA，配置好JAVA_HOME JMeter可运行在Windows系统，类Unix的系统。  注意JMeter的目录不能空格。
+运行 进入JMeter的安装目录下的bin目录，运行jmeter.bat(windows)或jmeter.sh(类Unix)。 打开JMeter的主界面如下：
+在JMeter4.0里取消了工作台，相关的功能合并到了测试计划里了。 右键单击&amp;quot;Test Plan&amp;quot;弹出菜单选择添加线程组：
+然后设置线程组的相关属性。
+右键单击线程组，添加http request
+录制 除了手动添加测试组件，还可以使用脚本录制的方法生成测试脚本。
+ 添加线程组 添加http request defaults设置默认的URL 添加录制控制器 添加http代理服务器 打开http代理服务器 把浏览器的代理服务器设置为之前配置的代理  分布式 在使用Jmeter进行性能测试时，如果并发数比较大(比如最近项目需要支持1000并发)，单台电脑的配置(CPU和内存)可能无法支持，这时可以使用Jmeter提供的分布式测试的功能。
+Slave 在主机上安装同版本的jmeter，然后执行jmeter-server.bat(windows)或jmeter-server.sh(类unix)。启动成功后如下： {% asset_img slave.png %}
+Master 找到Jmeter的bin目录下jmeter.properties文件，修改如下配置，IP和Port是slave机的IP以及自定义的端口
+remote_hosts=127.0.0.1,10.2.2.3，10.1.1.4 添加之后就可以选择远程执行了 {% asset_img remote-host.png %}</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 16.04 Samba 使用 openldap 验证</title>
+      <link>http://shadow1163.github.io/post/2018-01-31-ldap-samba-configuration/</link>
+      <pubDate>Wed, 31 Jan 2018 10:53:41 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-01-31-ldap-samba-configuration/</guid>
+      <description>Directory Services(目录服务) 我们知道，当局域网的规模变的越来越大时，为了方便主机管理，我们使用DHCP来实现IP地址、以太网地址、主机名和拓扑结构等的集中管理和统一分配。同样，如果一个局域网内有许多的其它资源时，如打印机、共享文件夹等等，为了方便的定位及查找它们，一种集中定位管理的方式或许是较好的选择，DNS和NIS都是用来实现类似管理的方法。
+对于局域网内的一个用户来讲，工作等其它应用需要，我们必须凭帐号登录主机、用帐号收发E-mail，甚至为了管理需要公司还需要维护一个电子号码簿来存储员工的姓名、地址、电话号码等信息。随着时间的增长，我们会为这些越来越多的帐号和密码弄的头晕脑胀。同时，如果一个员工离开，管理员就不得不翻遍所有的记录帐号信息的文件把离职员工的信息删除。这些将是一个繁琐而效率低下的工作。那么，如果能将此些帐号信息等统一到一个文件中进行管理，无疑会大大提高员工及管理员的工作效率。目录服务（LDAP是其实现的一种）正是基于这些应用实现的。
+LDAP LDAP是Lightweight Directory Access Protocol的缩写，顾名思义，它是指轻量级目录访问协议（这个主要是相对另一目录访问协议X.500而言的；LDAP略去了x.500中许多不太常用的功能，且以TCP/IP协议为基础）。目录服务和数据库很类似，但又有着很大的不同之处。数据库设计为方便读写，但目录服务专门进行了读优化的设计，因此不太适合于经常有写操作的数据存储。同时，LDAP只是一个协议，它没有涉及到如何存储这些信息，因此还需要一个后端数据库组件来实现。这些后端可以 是bdb(BerkeleyDB)、ldbm、shell和passwd等。
+LDAP目录以树状的层次结构来存储数据（这很类同于DNS），最顶层即根部称作“基准DN”，形如&amp;quot;dc=mydomain,dc=org&amp;quot;或者&amp;quot;o= mydomain.org&amp;rdquo;，前一种方式更为灵活也是Windows AD中使用的方式。在根目录的下面有很多的文件和目录，为了把这些大量的数据从逻辑上分开，LDAP像其它的目录服务协议一样使用OU （Organization Unit），可以用来表示公司内部机构，如部门等，也可以用来表示设备、人员等。同时OU还可以有子OU，用来表示更为细致的分类。
+LDAP中每一条记录都有一个唯一的区别于其它记录的名字DN（Distinguished Name）,其处在“叶子”位置的部分称作RDN；如dn:cn=tom,ou=animals,dc=mydomain,dc=org中tom即为 RDN；RDN在一个OU中必须是唯一的。
+因为LDAP数据是“树”状的，而且这棵树是可以无限延伸的，假设你要树上的一个苹果（一条记录），你怎么告诉园丁它的位置呢？当然首先要说明是哪一棵树（dc，相当于MYSQL的DB），然后是从树根到那个苹果所经过的所有“分叉”（ou，呵呵MYSQL里面好象没有这 DD），最后就是这个苹果的名字（uid，记得我们设计MYSQL或其它数据库表时，通常为了方便管理而加上一个‘id’字段吗？）。好了！这时我们可以清晰的指明这个苹果的位置了，就是那棵“歪脖树”的东边那个分叉上的靠西边那个分叉的再靠北边的分叉上的半红半绿的……，晕了！你直接爬上去吧！我还是说说LDAP里要怎么定义一个字段的位置吧，树（dc=waibo,dc=com)，分叉（ou=bei,ou=xi,ou= dong），苹果（cn=honglv），好了！位置出来了：
+dn:cn=honglv,ou=bei,ou=xi,ou=dong,dc=waibo,dc=com Samba Samba是由Andrew Tridgell在1991年（和Linux诞生的时间接近）制作的，当时他使用的是DEC的Pathworks网络，但是他发现无法同时使用Sun的NFS协议（正如我们前面介绍的，NFS是一个非常有用的网络协议），于是，连Socket（套接字）都不熟悉的他开始尝试自己在PC机上实现NFS，经过不断的摸索，他终于在自己的计算机上实现了NFS，采用的网络协议是NetBIOS（因为NetBIOS是公开的，可以合法地得到）。到了1992年1月，他开发出了0.1版，称为Server 0.1，随后又开发了一段时间，由于得到了X终端，他放弃了进一步的开发。直到1992年底，从一封电子邮件中，Andrew Tridgell获知了Linux，一个爱好者将Server 1.0转换到了Linux上，很快，人们发现这个程序可以直接使用，应用户的要求，Adrew Tridgell开始在Linux上开发，同时他发现smb-server已经被别人注册了，所以就只好起名为Samba，这就是Samba这个名称的由来。
+Samba是种自由软件，用来让UNIX系列的操作系统与微软Windows操作系统的SMB/CIFS(Server Message Block/Common Internet File System)网络协定做连结。不仅可存取及分享SMB的资料夹及打印机，本身还可以整合入Windows Server的网域、扮演为网域控制站(Domain Controller)以及加入Active Directory成员。简而言之，此软件在Windows与UNIX系列OS之间搭起一座桥梁，让两者的资源可互通有无。
+集成安装 以下安装基于Ubuntu 16.04 docker
+Samba 首先安装和配置Samba，可以通过apt来安装
+apt-get install -y samba samba-common python-glade2 system-config-samba 备份配置文件，生成一个新的空的配置文件。
+cp -pf /etc/samba/smb.conf /etc/samba/smb.conf.bak cat /dev/null &amp;gt; /etc/samba/smb.conf 添加以下内容到配置文件，生成一个匿名共享目录。
+[global] workgroup = WORKGROUP server string = Samba Server %v netbios name = ubuntu security = user map to guest = bad user dns proxy = no #============================ Share Definitions ============================== [Anonymous] path = /samba/anonymous browsable =yes writable = yes guest ok = yes read only = no 生成共享目录,修改权限。</description>
+    </item>
+    
+    <item>
+      <title>ubuntu编译dockerfile如何输入密码</title>
+      <link>http://shadow1163.github.io/post/2018-01-26-dockerfile-password/</link>
+      <pubDate>Fri, 26 Jan 2018 15:57:16 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-01-26-dockerfile-password/</guid>
+      <description>在Docker上使用Dockerfile构建docker image时，有的安装程序会要求输入密码，这个时候又不能交互输入。在类debian的系统中，最常见的安装软件的方式是使用apt-get，在这种方式下可以尝试使用debconf-set-selections来设置你的密码。以最常见的Mysql举例：
+export DEBIAN_FRONTEND=&amp;quot;noninteractive&amp;quot; sudo debconf-set-selections &amp;lt;&amp;lt;&amp;lt; &amp;quot;mysql-server mysql-server/root_password password $1&amp;quot; sudo debconf-set-selections &amp;lt;&amp;lt;&amp;lt; &amp;quot;mysql-server mysql-server/root_password_again password $1&amp;quot; 这条命令有的版本会起作用，有的版本却无效，原因是参数可能会有变化。可以使用debconf-get-selections检查一下。如果命令找不到，就先安装一下。
+sudo apt-get install -y debconf-utils </description>
+    </item>
+    
+    <item>
+      <title>SAMl2.0 简介</title>
+      <link>http://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</link>
+      <pubDate>Wed, 24 Jan 2018 13:37:49 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</guid>
+      <description>简介 {% blockquote %} SAML(Security Assertion Markup Language) 安全断言标记语言是由标识化组织 OASIS 提出的用于安全互操作的标准。SAML 是一个 XML 框架，由一组协议组成，用来传输安全声明。SAML 获得了广泛的行业认可，并被诸多主流厂商所支持。SAML 的初始版本 1.0 最初于 2002 年发布，发展数年后，于 2005 年推出 SAML 2.0。实际上，SAML 2.0 是由三个原有的认证联邦标准：SAML1.1，ID-FF (Identity Federation Framework) 1.2 和 Shibboleth 构成。 {% endblockquote %}
+SAML在单点登录中大有用处：在SAML协议中，一旦用户身份被主网站（身份鉴别服务器，Identity Provider，IDP）认证过后，该用户再去访问其他在主站注册过的应用（服务提供者，Service Providers，SP）时，都可以直接登录，而不用再输入身份和口令。
+SAML协议的核心是: IDP和SP通过用户的浏览器的重定向访问来实现交换数据。  SAML基本原理 SAML将所有与检索、传输和共享安全信息相关的功能标准化为以下形式：
+ 为用户提供XML安全信息格式和请求及传输信息的格式。 定义这些消息与SOAP等协议协作的方式。 为像Web SSO这样的常见用例定义精确的消息交换。 支持众多种隐私保护机制，包括在不披露用户身份的情况下确定用户属性的功能。 详述在Unix、Microsoft Windows、X509、LDAP、DCE和XCML这些广泛应用的技术所提供的格式中处理身份信息的方法。 提供一种系统的元数据机制，使得所有参与其中的系统能就所支持的SAML选项进行通讯。  SAML的角色、断言 SAML 2.0 的核心内容被涵盖在官方文档 SAMLConform, SAMLCore, SAMLBind 和 SAMLProf 中。SAML 2.0 规范说明书主要包含以下四方面内容：
+ SAML Assertions 断言：定义交互的数据格式 (XML) SAML Protocols 协议：定义交互的消息格式 (XML+processing rules) SAML Bindings 绑定：定义如何与常见的通信协议绑定 (HTTP,SOAP) SAML Profile 使用框架：给出对 SAML 断言及协议如何使用的建议 (Protocols+Bindings)  在介绍 SAML 四大内容之前，简单介绍下在 SAML 协议标准中出现的两个角色，一个是 Identity Provider(IdP)，通常 IdP 负责创建、维护和管理用户认证。一个是 Service Provider(SP)，通常 SP 控制用户是否能够使用该 SP 提供的服务和资源。</description>
+    </item>
+    
+    <item>
+      <title>build fuchsia on ubuntu 16.04</title>
+      <link>http://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</link>
+      <pubDate>Sat, 20 Jan 2018 18:09:34 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</guid>
+      <description>一直想尝试一下google的新系统Fuchsia，但是由于网络的问题一直没有下载成功，今天用梯子下载完源码之后，就简单试用了一下。由于这个系统还在开发阶段，安装的步骤很有可能发生变化，只能做一个参考记录。
+依赖 首先安装依赖包
+ubuntu sudo apt-get install texinfo libglib2.0-dev liblz4-tool autoconf libtool libsdl-dev build-essential golang git build-essential curl unzip mac xcode-select --install 下载 由于网络的问题，下载一直是个大问题，再加上系统处于开发阶段，虽然在github上有相关的代码镜像，但是构建的链接都是在fuchsia.googlesource.com上，所以必须要用梯子才能完成下载。 参考之前的一些资料，我是用以下方法下载源码的
+curl -s https://raw.githubusercontent.com/fuchsia-mirror/jiri/master/scripts/bootstrap_jiri | bash -s fuchsia cd fuchsia sudo cp .jiri_root/bin/jiri /usr/local/bin sudo chmod 755 /usr/local/bin/jiri jiri import fuchsia https://fuchsia.googlesource.com/manifest jiri update 官网上也有另外的命令，我没有试，有兴趣的可以试试。
+curl -s &amp;#34;https://fuchsia.googlesource.com/scripts/+/master/bootstrap?format=TEXT&amp;#34; | base64 --decode | bash -s &amp;lt;layer&amp;gt; 关于layer的参考如下
+ Zircon Garnet Peridot Topaz  {% blockquote %} Zircon is the operating system&amp;rsquo;s foundation: it mediates hardware access, implements essential software abstractions over shared resources, and provides a platform for low-level software development.</description>
+    </item>
+    
+    <item>
+      <title>Freeradius 入门简介</title>
+      <link>http://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</link>
+      <pubDate>Fri, 19 Jan 2018 15:08:50 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</guid>
+      <description>最近项目上需要用到Radius认证，就找了点资料看看。这里有一本翻译的书可以看一下，很遗憾作者只翻译了4章，可以理解一下相关的概念。 https://freeradius.akagi201.org/ch00-intro/index.html 英文好的同学可以看看原著。 http://yustanto.com/freeradius.pdf
+安装 我的系统是ubuntu16.04的，使用apt安装的freeradius的版本是2.2.8,在我写这篇文章的时候官网上最新的relase版本是3.0.16。2.X的版本处于维护状态。需要安装最新版本的只能下载源码编译安装。另外需要注意的是openssl的版本，通过apt安装的版本是1.0.2g，最新版需要安装1.0.2h或者更新的版本。openssl同样也需要下载最新源码编译安装。freeradius 3.X不支持最新的openssl 1.1.0,如果要使用openssl 1.1.0，需要在github上下载freeradius 4.X的源码编译安装。
+wget https://www.openssl.org/source/openssl-1.0.2n.tar.gz tar zxf openssl-1.0.2n.tar.gz cd openssl-1.0.2n ./config --prefix=/usr --openssldir=/etc/ssl --libdir=lib/openssl-1.0 shared zlib-dynamic make depend make &amp;amp;&amp;amp; make install 安装完成后检查一下版本
+openssl version 接下来是安装freeradius
+wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.16.tar.gz tar zxf freeradius-server-3.0.16.tar.gz cd freeradius-server-3.0.16 ./configure --with-openssl-lib-dir=/usr/lib/openssl-1.0 make &amp;amp;&amp;amp; make install 安装之后测试一下是否正常
+radiusd –X 最后出现: Ready to process requests 就表明安装成功了. 测试工具 linux下的测试工具 apt-get install freeradius-utils-y radtest steve testing localhost 1812 testing123 windows下的测试工具 windows下可以用RADIUS test client。</description>
+    </item>
+    
+    <item>
+      <title>go mobile 简单示例</title>
+      <link>http://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</link>
+      <pubDate>Thu, 18 Jan 2018 15:18:35 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</guid>
+      <description>Go语言官方提供了一个编写手机APP的框架mobile, 看了看例子觉得还是比较简单的。
+安装 首先要配置好golang的环境，Android需要golang 1.5以上的版本， iOS的需要1.7.4以上的版本。然后配置好Android NDK，可以用Android Studio配置。iOS同样需要配置好Xcode。
+go get golang.org/x/mobile/cmd/gomobile gomobile init # it might take a few minutes 由于网络的原因，有可能无法直接从官网上获取gomobile，也可以从github上获取。
+go get github.com/golang/mobile ln -s $GOAPTH/src/github.com/golang/mobile $GOAPTH/srcgolang.org/x/mobile go get golang.org/x/mobile/cmd/gomobile gomobile init # it might take a few minutes 如果NDK没有安装好，init可能不会报错，但是在build的时候也有提示。也可以指定NDK的目录。
+gomobile init -ndk &amp;lt;your ndk path&amp;gt; 编译 安装完成后就可以编译APK文件了，很简单的命令。这里编译官方提供的一个示例。
+gomobile build -target=android golang.org/x/mobile/example/basic 看下你的目录下有没有basic.apk文件。
+以上只是对gomobile很简单的介绍，接下来就要写一些具体的页面来看看这个框架怎么样。
+示例参考：https://github.com/golang/go/wiki/Mobile</description>
+    </item>
+    
+    <item>
+      <title>jenkins 自动构建任务工具</title>
+      <link>http://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</link>
+      <pubDate>Wed, 17 Jan 2018 15:41:38 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</guid>
+      <description>有时候，Jenkins需要自动创建Job来构建运行某些任务，找了一些工具如下
+ Job Generator Job DSL Jenkins job builder  Job Generator 这是一个Jenkins的插件，安装之后可以在Web页面上可以创建一个“Job Generator”的模板任务，在添加参数和设置构建条件之后就可以手动构建任务。这个插件很长时间没有更新了，有一个问题是不能使用环境变量，包括Jenkins定义的。用来手动调试是可行的。
+具体的配置可以参考：https://wiki.jenkins.io/display/JENKINS/Job+Generator+Plugin
+Job DSL 这也是一个Jenkins的插件，使用Groovy脚本来创建任务，安装之后在某个任务上插入脚本片段就可以生成需要的Job。这个插件比较灵活，可以在脚本里控制所有的配置。
+具体配置可参考：https://github.com/jenkinsci/job-dsl-plugin/wiki/Tutorial&amp;mdash;Using-the-Jenkins-Job-DSL
+Jenkins job builder 这是一个python的模块，安装之后就可以在脚本中控制生成需要的Job，跟DSL的区别是不需要在任务中去插入脚本，也可以控制所有的配置，使用yaml文件要定义配置文件，任务模板等等。
+安装 源码安装
+git clone https://github.com/openstack-infra/jenkins-job-builder sudo python setup.py install 也可以通过pip安装
+pip install --user jenkins-job-builder 如果有提示pbr版本过低，可以用pip重新安装最新版本即可
+pip install pbr sample 创建sample.yaml文件并输入如下代码片段
+- job: name: Very basic freestyle job project-type: freestyle description: &#39;Just contais a very basic jenkins job that echos &amp;quot;Hello world&amp;quot;&#39; builders: - shell: echo &#39;Hello world!&#39; 然后添加配置文件，可以参考官网的片段：</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 开启报错</title>
+      <link>http://shadow1163.github.io/post/jenkins-error/</link>
+      <pubDate>Tue, 16 Jan 2018 14:17:50 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/jenkins-error/</guid>
+      <description>升级ubuntu17.10之后，打开jenkins之后就报了这个错误。查了一下资料是因为使用了java9的原因，降级到java8就正常了。
+Stack trace javax.servlet.ServletException: java.lang.AssertionError: InstanceIdentity is missing its singleton at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:796) at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876) at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649) at org.kohsuke.stapler.Stapler.service(Stapler.java:238) at javax.servlet.http.HttpServlet.service(HttpServlet.java:729) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135) at hudson.plugins.greenballs.GreenBallFilter.doFilter(GreenBallFilter.java:59) at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132) at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126) 参考链接： https://issues.jenkins-ci.org/browse/JENKINS-38057 https://groups.google.com/forum/#!topic/jenkinsci-users/xFFnIB2uK_8</description>
+    </item>
+    
+  </channel>
+</rss>

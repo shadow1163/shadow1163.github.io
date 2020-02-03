@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ngrok on Shadow1163&#39;s Blog</title>
+    <link>http://shadow1163.github.io/tags/ngrok/</link>
+    <description>Recent content in ngrok on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 20 Jul 2018 16:07:16 +0800</lastBuildDate>
+    
+	<atom:link href="http://shadow1163.github.io/tags/ngrok/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ngrok intro</title>
+      <link>http://shadow1163.github.io/post/2018-07-20-ngrok-intro/</link>
+      <pubDate>Fri, 20 Jul 2018 16:07:16 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-07-20-ngrok-intro/</guid>
+      <description>最近做Jenkins和Github的集成，计划是收到一个代码的Push就执行一次测试。但是同时遇到一个问题，由于Jenkins没有设置公有IP，导致了Github上设置的webhook无法跟Jenkins通信。在无法设置公有IP的情况下，通过一个小工具来解决这个问题。这个工具叫ngrok。官网：https://ngrok.com/ 。
+下载登录 进入官网后，注册或者通过社交账号登录都可以，下载ngrok，解压后执行：
+./ngrok authtoken &amp;lt;your Auth code&amp;gt; 开启 在连接之后，就可以开始使用了。
+./ngrok help ./ngrok http 80 执行第二条命令会看到如下格式的记录
+Forwarding http://xxxxxxxx.ngrok.io -&amp;gt; 127.0.0.1:80 这个网址就可以放在github的webhook中，通过这个网址就可以和本地80端口通信了。
+Automation ngrok -log=stdout 80 &amp;gt; /dev/null &amp;amp; curl localhost:4040/api/tunnels 这两条命令是后台启动ngrok, 使用API获取转换域名。</description>
+    </item>
+    
+  </channel>
+</rss>

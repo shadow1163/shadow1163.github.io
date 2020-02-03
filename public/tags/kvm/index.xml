@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KVM on Shadow1163&#39;s Blog</title>
+    <link>http://shadow1163.github.io/tags/kvm/</link>
+    <description>Recent content in KVM on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 25 Jul 2018 16:10:35 +0800</lastBuildDate>
+    
+	<atom:link href="http://shadow1163.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>MacOS Mojave install on KVM</title>
+      <link>http://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</link>
+      <pubDate>Wed, 25 Jul 2018 16:10:35 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</guid>
+      <description>最近项目上需要在最新的MacOS 10.14上测试, 以前也在VMware ESXi上部署过MacOS 10.12，由于vmware unlocker宣布不在支持ESXi，找到另外一个KVM项目支持MacOS 10.14，那么就在KVM上部署试试吧。
+Install Clone source
+git clone https://github.com/kholia/OSX-KVM Install QEMU
+sudo apt-get install qemu uml-utilities libguestfs-tools # First edit /etc/apt/sources.list to add/uncomment deb-src lines sudo apt-get update sudo apt-get build-dep qemu git clone https://github.com/kholia/qemu.git cd qemu git checkout macOS git submodule init git submodule update --recursive ./configure --prefix=/home/$(whoami)/QEMU --target-list=x86_64-softmmu --audio-drv-list=pa $ make clean; make -j8; make install 在编译的时候有可能报错，&amp;ldquo;error: static declaration of memfd_create follows non-static declaration&amp;rdquo;, 可参考这个补丁。</description>
+    </item>
+    
+  </channel>
+</rss>

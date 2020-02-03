@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>httpstat on Shadow1163&#39;s Blog</title>
+    <link>http://shadow1163.github.io/tags/httpstat/</link>
+    <description>Recent content in httpstat on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 04 May 2018 14:48:53 +0800</lastBuildDate>
+    
+	<atom:link href="http://shadow1163.github.io/tags/httpstat/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>httpstat – A Curl Statistics Tool to Check Website Performance</title>
+      <link>http://shadow1163.github.io/post/2018-05-04-intro-httpstat/</link>
+      <pubDate>Fri, 04 May 2018 14:48:53 +0800</pubDate>
+      
+      <guid>http://shadow1163.github.io/post/2018-05-04-intro-httpstat/</guid>
+      <description>The httpstat is a tool that reflects curl statistics in a fascinating and well-defined way.
+Install The httpstat has been implemented by golang or python.
+Install by python  Get it directly from its github repo using the wget commands as follows:  wget -c https://raw.githubusercontent.com/reorx/httpstat/master/httpstat.py  Using pip like this  sudo -H pip install httpstat Install by golang Notice httpstat requires Go 1.7.1 or later
+Install it like this</description>
+    </item>
+    
+  </channel>
+</rss>
