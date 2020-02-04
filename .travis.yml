@@ -1,9 +1,17 @@
 language: go
 
+go:
+  - 1.13.x
+
 git:
   depth: 1
 
-install: go get -v github.com/gohugoio/hugo
+install:
+  - git clone https://github.com/gohugoio/hugo.git
+  - cd hugo
+  - git checkout v0.63.2
+  - go install --tags extended
+  - cd ..
 
 script:
   - hugo
