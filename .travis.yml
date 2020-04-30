@@ -9,7 +9,8 @@ git:
 install:
   - git clone https://github.com/gohugoio/hugo.git
   - cd hugo
-  - git checkout v0.63.2
+  - git checkout v0.69.2
+  - git submodule init &&  git submodule update
   - go install --tags extended
   - cd ..
 
