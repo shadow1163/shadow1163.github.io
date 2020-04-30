@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html><head>
+<title>Golang 并发定量协程数量</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://shadow1163.github.io/scss/journal.min.56b67b8b01d7cd1015ed14414fd2fc33ebfb2e8413dcbc47c5cd734544c92cd7.css" integrity="sha256-VrZ7iwHXzRAV7RRBT9L8M&#43;v7LoQT3LxHxc1zRUTJLNc=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://shadow1163.github.io/scss/dark-mode.min.5a2bbd1758c83affd639a91fbfd5cc681b1a5574df99442825c444dd40504b13.css" integrity="sha256-Wiu9F1jIOv/WOakfv9XMaBsaVXTfmUQoJcRE3UBQSxM=" media="screen">
+
+
+<script src="https://shadow1163.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://shadow1163.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://shadow1163.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: 'your client id',
+  clientSecret: 'your client secret',
+  repo: 'repo name',
+  owner: 'user',
+  admin: ['user'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://shadow1163.github.io">
+    
+        <div class="nav-title">
+            Shadow1163&#39;s Blog
+        </div>
+        
+        <div class="nav-subtitle">
+            Have Fun
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 Shadow1163&#39;s Blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#syncwaitgroup" v-on:click="closeDrawer" id="syncwaitgroup-nav">
+										 sync.WaitGroup
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#channel" v-on:click="closeDrawer" id="channel-nav">
+										 channel
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#syncwaitgroup" v-on:click="closeDrawer" id="syncwaitgroup-nav">
+										 sync.WaitGroup
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#channel" v-on:click="closeDrawer" id="channel-nav">
+										 channel
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://shadow1163.github.io">
+            Shadow1163&#39;s Blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://shadow1163.github.io">
+        <div class="single-column-header-title">Shadow1163&#39;s Blog</div>
+        
+        <div class="single-column-header-subtitle">Have Fun</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('https://shadow1163.github.io')">
+                <div class="post-title">
+                    Golang 并发定量协程数量
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2018-03-23 10:15
+                        </time>
+                        
+
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/golang">golang</a>
+                                &nbsp;
+                            
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>最近需要用到golang做一个并发测试，之前大概看了一遍并发，对基本的流程有了一个了解了。我的需求是启动固定数量的客户端程序，然后等待程序运行完成后收集分析一下结果即可。参照网上的代码如下：</p>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func Afunction(ch chan int) {
+	fmt.Println(&quot;finish&quot;)
+	&lt;-ch
+}
+
+func main() {
+	ch := make(chan int, 10)
+	for i := 0; i &lt; 1000; i++ {
+		ch &lt;- 1
+		go Afunction(ch)
+	}
+}
+</code></pre><p>运行了一下感觉没问题就没仔细检查了。结果领导发现运行结果差10个，然后才来仔细看程序，在main函数中的for循环调用完函数后并不会阻塞等待被调用的函数执行完成。main函数退出后，并发的协程也会被自动回收，就导致了结果差10个。
+解决的办法是在for循环后添加代码等待协程执行完成，然后退出。有两种方法。</p>
+<h3 id="syncwaitgroup">sync.WaitGroup</h3>
+<pre><code>package main
+
+import (
+  &quot;fmt&quot;
+  &quot;sync&quot;
+)
+
+var waitgroup sync.WaitGroup
+
+func Afunction(ch chan int) {
+	fmt.Println(&quot;finish&quot;)
+	&lt;-ch
+  waitgroup.Done()
+}
+
+func main() {
+	ch := make(chan int, 10)
+	for i := 0; i &lt; 1000; i++ {
+		ch &lt;- 1
+    waitgroup.Add(1)
+		go Afunction(ch)
+	}
+  waitgroup.Wait()
+}
+</code></pre><p>由于要限制协程的数量，所以不能不用channel。虽然程序有些臃肿，但还是工作的。</p>
+<h3 id="channel">channel</h3>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+)
+
+func Afunction(ch chan int) {
+	fmt.Println(&quot;finish&quot;)
+	&lt;-ch
+}
+
+func main() {
+	ch := make(chan int, 10)
+	for i := 0; i &lt; 1000; i++ {
+		ch &lt;- 1
+		go Afunction(ch)
+	}
+  for {
+    if len(ch) {
+      break
+    }
+  }
+}
+</code></pre><p>另外可以通过判断channel的缓存数量来等待协程的运行完成。总之使用并发要非常小心。</p>
+
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2018-03-23</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://shadow1163.github.io/post/2018-05-04-intro-httpstat/">
+                    Next<br>httpstat – A Curl Statistics Tool to Check Website Performance
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://shadow1163.github.io/post/2018-02-24-jmeter-intro/">
+                    Previous<br>Apache Jmeter 入门
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 Shadow1163&#39;s Blog
+	</div>
+    	</div>
+    <script src="https://shadow1163.github.io/js/journal.js"></script>
+    </body>
+</html>

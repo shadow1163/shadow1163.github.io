@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/tags/</link>
+    <description>Recent content in Tags on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://shadow1163.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>KVM</title>
+      <link>https://shadow1163.github.io/tags/kvm/</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/kvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ngrok</title>
+      <link>https://shadow1163.github.io/tags/ngrok/</link>
+      <pubDate>Fri, 20 Jul 2018 16:07:16 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/ngrok/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tools</title>
+      <link>https://shadow1163.github.io/tags/tools/</link>
+      <pubDate>Fri, 20 Jul 2018 16:07:16 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jmeter</title>
+      <link>https://shadow1163.github.io/tags/jmeter/</link>
+      <pubDate>Fri, 20 Jul 2018 15:13:04 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/jmeter/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://shadow1163.github.io/tags/golang/</link>
+      <pubDate>Fri, 04 May 2018 14:48:53 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>httpstat</title>
+      <link>https://shadow1163.github.io/tags/httpstat/</link>
+      <pubDate>Fri, 04 May 2018 14:48:53 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/httpstat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://shadow1163.github.io/tags/docker/</link>
+      <pubDate>Fri, 26 Jan 2018 15:57:16 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SAML</title>
+      <link>https://shadow1163.github.io/tags/saml/</link>
+      <pubDate>Wed, 24 Jan 2018 13:37:49 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/saml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fuchsia</title>
+      <link>https://shadow1163.github.io/tags/fuchsia/</link>
+      <pubDate>Sat, 20 Jan 2018 18:09:34 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/fuchsia/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OS</title>
+      <link>https://shadow1163.github.io/tags/os/</link>
+      <pubDate>Sat, 20 Jan 2018 18:09:34 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Radius</title>
+      <link>https://shadow1163.github.io/tags/radius/</link>
+      <pubDate>Fri, 19 Jan 2018 15:08:50 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/radius/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gomobile</title>
+      <link>https://shadow1163.github.io/tags/gomobile/</link>
+      <pubDate>Thu, 18 Jan 2018 15:18:35 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/gomobile/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Jenkins</title>
+      <link>https://shadow1163.github.io/tags/jenkins/</link>
+      <pubDate>Wed, 17 Jan 2018 15:41:38 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/tags/jenkins/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

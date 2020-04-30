@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/tags/docker/</link>
+    <description>Recent content in Docker on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 26 Jan 2018 15:57:16 +0800</lastBuildDate>
+    
+	<atom:link href="https://shadow1163.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ubuntu编译dockerfile如何输入密码</title>
+      <link>https://shadow1163.github.io/post/2018-01-26-dockerfile-password/</link>
+      <pubDate>Fri, 26 Jan 2018 15:57:16 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2018-01-26-dockerfile-password/</guid>
+      <description>在Docker上使用Dockerfile构建docker image时，有的安装程序会要求输入密码，这个时候又不能交互输入。在类debian的系统中，最常见的安装软件的方式是使用apt-get，在这种方式下可以尝试使用debconf-set-selections来设置你的密码。以最常见的Mysql举例：
+export DEBIAN_FRONTEND=&amp;quot;noninteractive&amp;quot; sudo debconf-set-selections &amp;lt;&amp;lt;&amp;lt; &amp;quot;mysql-server mysql-server/root_password password $1&amp;quot; sudo debconf-set-selections &amp;lt;&amp;lt;&amp;lt; &amp;quot;mysql-server mysql-server/root_password_again password $1&amp;quot; 这条命令有的版本会起作用，有的版本却无效，原因是参数可能会有变化。可以使用debconf-get-selections检查一下。如果命令找不到，就先安装一下。
+sudo apt-get install -y debconf-utils </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fuchsia on Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/tags/fuchsia/</link>
+    <description>Recent content in Fuchsia on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Jan 2018 18:09:34 +0800</lastBuildDate>
+    
+	<atom:link href="https://shadow1163.github.io/tags/fuchsia/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>build fuchsia on ubuntu 16.04</title>
+      <link>https://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</link>
+      <pubDate>Sat, 20 Jan 2018 18:09:34 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</guid>
+      <description>一直想尝试一下google的新系统Fuchsia，但是由于网络的问题一直没有下载成功，今天用梯子下载完源码之后，就简单试用了一下。由于这个系统还在开发阶段，安装的步骤很有可能发生变化，只能做一个参考记录。
+依赖 首先安装依赖包
+ubuntu sudo apt-get install texinfo libglib2.0-dev liblz4-tool autoconf libtool libsdl-dev build-essential golang git build-essential curl unzip mac xcode-select --install 下载 由于网络的问题，下载一直是个大问题，再加上系统处于开发阶段，虽然在github上有相关的代码镜像，但是构建的链接都是在fuchsia.googlesource.com上，所以必须要用梯子才能完成下载。 参考之前的一些资料，我是用以下方法下载源码的
+curl -s https://raw.githubusercontent.com/fuchsia-mirror/jiri/master/scripts/bootstrap_jiri | bash -s fuchsia cd fuchsia sudo cp .jiri_root/bin/jiri /usr/local/bin sudo chmod 755 /usr/local/bin/jiri jiri import fuchsia https://fuchsia.googlesource.com/manifest jiri update 官网上也有另外的命令，我没有试，有兴趣的可以试试。
+curl -s &amp;#34;https://fuchsia.googlesource.com/scripts/+/master/bootstrap?format=TEXT&amp;#34; | base64 --decode | bash -s &amp;lt;layer&amp;gt; 关于layer的参考如下
+ Zircon Garnet Peridot Topaz  {% blockquote %} Zircon is the operating system&amp;rsquo;s foundation: it mediates hardware access, implements essential software abstractions over shared resources, and provides a platform for low-level software development.</description>
+    </item>
+    
+  </channel>
+</rss>

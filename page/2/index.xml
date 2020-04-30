@@ -1,0 +1,292 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/</link>
+    <description>Recent content on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://shadow1163.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>SAMl2.0 简介</title>
+        <link>https://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</link>
+        <pubDate>Wed, 24 Jan 2018 13:37:49 +0800</pubDate>
+        
+        <guid>https://shadow1163.github.io/post/2018-01-24-saml2-0-intro/</guid>
+        <description>Shadow1163&#39;s Blog https://shadow1163.github.io/post/2018-01-24-saml2-0-intro/ -&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;{% blockquote %}
+SAML(Security Assertion Markup Language) 安全断言标记语言是由标识化组织 OASIS 提出的用于安全互操作的标准。SAML 是一个 XML 框架，由一组协议组成，用来传输安全声明。SAML 获得了广泛的行业认可，并被诸多主流厂商所支持。SAML 的初始版本 1.0 最初于 2002 年发布，发展数年后，于 2005 年推出 SAML 2.0。实际上，SAML 2.0 是由三个原有的认证联邦标准：SAML1.1，ID-FF (Identity Federation Framework) 1.2 和 Shibboleth 构成。
+{% endblockquote %}&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://shadow1163.github.io/images/saml2.jpg&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;SAML在单点登录中大有用处：在SAML协议中，一旦用户身份被主网站（身份鉴别服务器，Identity Provider，IDP）认证过后，该用户再去访问其他在主站注册过的应用（服务提供者，Service Providers，SP）时，都可以直接登录，而不用再输入身份和口令。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SAML协议的核心是: IDP和SP通过用户的浏览器的重定向访问来实现交换数据。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;saml基本原理&#34;&gt;SAML基本原理&lt;/h2&gt;
+&lt;p&gt;SAML将所有与检索、传输和共享安全信息相关的功能标准化为以下形式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为用户提供XML安全信息格式和请求及传输信息的格式。&lt;/li&gt;
+&lt;li&gt;定义这些消息与SOAP等协议协作的方式。&lt;/li&gt;
+&lt;li&gt;为像Web SSO这样的常见用例定义精确的消息交换。&lt;/li&gt;
+&lt;li&gt;支持众多种隐私保护机制，包括在不披露用户身份的情况下确定用户属性的功能。&lt;/li&gt;
+&lt;li&gt;详述在Unix、Microsoft Windows、X509、LDAP、DCE和XCML这些广泛应用的技术所提供的格式中处理身份信息的方法。&lt;/li&gt;
+&lt;li&gt;提供一种系统的元数据机制，使得所有参与其中的系统能就所支持的SAML选项进行通讯。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;saml的角色断言&#34;&gt;SAML的角色、断言&lt;/h2&gt;
+&lt;p&gt;SAML 2.0 的核心内容被涵盖在官方文档 SAMLConform, SAMLCore, SAMLBind 和 SAMLProf 中。SAML 2.0 规范说明书主要包含以下四方面内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SAML Assertions 断言：定义交互的数据格式 (XML)&lt;/li&gt;
+&lt;li&gt;SAML Protocols 协议：定义交互的消息格式 (XML+processing rules)&lt;/li&gt;
+&lt;li&gt;SAML Bindings 绑定：定义如何与常见的通信协议绑定 (HTTP,SOAP)&lt;/li&gt;
+&lt;li&gt;SAML Profile 使用框架：给出对 SAML 断言及协议如何使用的建议 (Protocols+Bindings)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在介绍 SAML 四大内容之前，简单介绍下在 SAML 协议标准中出现的两个角色，一个是 Identity Provider(IdP)，通常 IdP 负责创建、维护和管理用户认证。一个是 Service Provider(SP)，通常 SP 控制用户是否能够使用该 SP 提供的服务和资源。&lt;/p&gt;
+&lt;p&gt;SAML 断言定义了一系列 XML 编码格式安全断言的语法和语义规范，通常断言由 SAML IdP 端生成并发送到 SAML SP 端，由 SP 端来分析和处理断言。断言内容中可能包含三类声明（statements），声明是 SP 端用来分析并判断用户能否接入服务或资源的依据：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;认证声明：声明用户是否已经认证，通常用于单点登录。&lt;/li&gt;
+&lt;li&gt;属性声明：声明某个 Subject 所具有的属性。&lt;/li&gt;
+&lt;li&gt;授权决策声明：声明某个资源的权限，即一个用户在资源 R 上具有给定的 E 权限而能够执行 A 操作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;SAML Protocols 描述了 SAML 元素（包括断言）如何被打包到 SAML 请求和响应元素中，并规定 SAML 实体（IdP、SP 等）处理这些元素时必须遵守的处理规则。在大多数情况下，SAML Protocols 就是一个简单的请求 - 响应协议。&lt;/p&gt;
+&lt;p&gt;SAML Bindings( 绑定 ) 是 SAML Protocols 信息到一个标准信息格式或者通信协议的映射过程。例如 SAML SOAP 绑定就定义了一个 SAML 消息如何被封装到 SOAP envelope 中。&lt;/p&gt;
+&lt;p&gt;参考链接：https://www.ibm.com/developerworks/cn/websphere/library/techarticles/1111_luol_sso/1111_luol_sso.html&lt;/p&gt;
+- https://shadow1163.github.io/post/2018-01-24-saml2-0-intro/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>build fuchsia on ubuntu 16.04</title>
+        <link>https://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</link>
+        <pubDate>Sat, 20 Jan 2018 18:09:34 +0800</pubDate>
+        
+        <guid>https://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/</guid>
+        <description>Shadow1163&#39;s Blog https://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/ -&lt;p&gt;一直想尝试一下google的新系统Fuchsia，但是由于网络的问题一直没有下载成功，今天用梯子下载完源码之后，就简单试用了一下。由于这个系统还在开发阶段，安装的步骤很有可能发生变化，只能做一个参考记录。&lt;/p&gt;
+&lt;h2 id=&#34;依赖&#34;&gt;依赖&lt;/h2&gt;
+&lt;p&gt;首先安装依赖包&lt;/p&gt;
+&lt;h4 id=&#34;ubuntu&#34;&gt;ubuntu&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;sudo apt-get install texinfo libglib2.0-dev liblz4-tool autoconf libtool libsdl-dev build-essential golang git build-essential curl unzip
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;mac&#34;&gt;mac&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;xcode-select --install
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;下载&#34;&gt;下载&lt;/h2&gt;
+&lt;p&gt;由于网络的问题，下载一直是个大问题，再加上系统处于开发阶段，虽然在github上有相关的代码镜像，但是构建的链接都是在fuchsia.googlesource.com上，所以必须要用梯子才能完成下载。
+参考之前的一些资料，我是用以下方法下载源码的&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;curl -s https://raw.githubusercontent.com/fuchsia-mirror/jiri/master/scripts/bootstrap_jiri | bash -s fuchsia
+cd fuchsia
+sudo cp .jiri_root/bin/jiri /usr/local/bin
+sudo chmod &lt;span style=&#34;color:#ae81ff&#34;&gt;755&lt;/span&gt; /usr/local/bin/jiri
+jiri import fuchsia https://fuchsia.googlesource.com/manifest
+jiri update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;官网上也有另外的命令，我没有试，有兴趣的可以试试。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;curl -s &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://fuchsia.googlesource.com/scripts/+/master/bootstrap?format=TEXT&amp;#34;&lt;/span&gt; | base64 --decode | bash -s &amp;lt;layer&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;关于layer的参考如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Zircon&lt;/li&gt;
+&lt;li&gt;Garnet&lt;/li&gt;
+&lt;li&gt;Peridot&lt;/li&gt;
+&lt;li&gt;Topaz&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;{% blockquote %}
+Zircon is the operating system&amp;rsquo;s foundation: it mediates hardware access, implements essential software abstractions over shared resources, and provides a platform for low-level software development.
+For example, Zircon contains the kernel, device manager, most core and first-party device drivers, and low-level system libraries, such as libc and launchpad. Zircon also defines the Fuchsia IDL (FIDL), which is the protocol spoken between processes in the system, as well as backends for C and C++. The backends for other languages will be added by other layers.&lt;/p&gt;
+&lt;p&gt;Garnet provides device-level system services for software installation, administration, communication with remote systems, and product deployment.
+For example, Garnet contains the network, media, and graphics services. Garnet also contains the package management and update system.&lt;/p&gt;
+&lt;p&gt;Peridot provides the services needed to create a cohesive, customizable, multi-device user experience assembled from modules, stories, agents, entities, and other components.
+For example, Peridot contains the device, user, and story runners. Peridot also contains the ledger and resolver, as well as the context and suggestion engines.&lt;/p&gt;
+&lt;p&gt;Topaz augments system functionality by implementing interfaces defined by underlying layers. Topaz contains four major categories of software: modules, agents, shells, and runners.
+For example, modules include the calendar, email, and terminal modules, shells include the base shell and the user shell, agents include the email and chat content providers, and runners include the Web, Dart, and Flutter runners.
+{% endblockquote %}&lt;/p&gt;
+&lt;h2 id=&#34;编译&#34;&gt;编译&lt;/h2&gt;
+&lt;p&gt;当下载完成之后，就可以编译了，可以使用一个新命令叫fx，这个命令跟jiri在同一个目录下，如果找不到命令就添加到path或者用绝对路径执行。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fx set x86-64/fx set x86-64 --release
+fx full-build
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用这两个命令就可以完成编译了，需要注意的一点是磁盘空间，请确保可用空间40G以上。&lt;/p&gt;
+&lt;h2 id=&#34;启动测试&#34;&gt;启动测试&lt;/h2&gt;
+&lt;p&gt;编译需要一些时间，等到编译完成后就可以启动测试一下了。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fx run/fx run -g
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;等待一会就可以看到系统已经启动了。&lt;/p&gt;
+&lt;p&gt;启动加载网卡&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;fx run -N -u $FUCHSIA_SCRIPTS_DIR/start-dhcp-server.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;测试命令如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/system/test/ledger_unittests
+&lt;/code&gt;&lt;/pre&gt;- https://shadow1163.github.io/post/2018-01-20-build-fuchsia-on-ubuntu-16-04/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Freeradius 入门简介</title>
+        <link>https://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</link>
+        <pubDate>Fri, 19 Jan 2018 15:08:50 +0800</pubDate>
+        
+        <guid>https://shadow1163.github.io/post/2018-01-19-freeradius-introduction/</guid>
+        <description>Shadow1163&#39;s Blog https://shadow1163.github.io/post/2018-01-19-freeradius-introduction/ -&lt;p&gt;最近项目上需要用到Radius认证，就找了点资料看看。这里有一本翻译的书可以看一下，很遗憾作者只翻译了4章，可以理解一下相关的概念。
+&lt;a href=&#34;https://freeradius.akagi201.org/ch00-intro/index.html&#34;&gt;https://freeradius.akagi201.org/ch00-intro/index.html&lt;/a&gt;
+英文好的同学可以看看原著。
+&lt;a href=&#34;http://yustanto.com/freeradius.pdf&#34;&gt;http://yustanto.com/freeradius.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;我的系统是ubuntu16.04的，使用apt安装的freeradius的版本是2.2.8,在我写这篇文章的时候官网上最新的relase版本是3.0.16。2.X的版本处于维护状态。需要安装最新版本的只能下载源码编译安装。另外需要注意的是openssl的版本，通过apt安装的版本是1.0.2g，最新版需要安装1.0.2h或者更新的版本。openssl同样也需要下载最新源码编译安装。freeradius 3.X不支持最新的openssl 1.1.0,如果要使用openssl 1.1.0，需要在github上下载freeradius 4.X的源码编译安装。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;wget https://www.openssl.org/source/openssl-1.0.2n.tar.gz
+tar zxf openssl-1.0.2n.tar.gz
+cd openssl-1.0.2n
+./config --prefix&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/usr --openssldir&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;/etc/ssl --libdir&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;lib/openssl-1.0 shared zlib-dynamic
+make depend
+make &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;安装完成后检查一下版本&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;openssl version
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;接下来是安装freeradius&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;wget ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-3.0.16.tar.gz
+tar zxf freeradius-server-3.0.16.tar.gz
+cd freeradius-server-3.0.16
+./configure --with-openssl-lib-dir=/usr/lib/openssl-1.0
+make &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;安装之后测试一下是否正常&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;radiusd –X
+最后出现: Ready to process requests
+就表明安装成功了.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;测试工具&#34;&gt;测试工具&lt;/h2&gt;
+&lt;h4 id=&#34;linux下的测试工具&#34;&gt;linux下的测试工具&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;apt-get install freeradius-utils-y
+radtest steve testing localhost &lt;span style=&#34;color:#ae81ff&#34;&gt;1812&lt;/span&gt; testing123
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;windows下的测试工具&#34;&gt;windows下的测试工具&lt;/h4&gt;
+&lt;p&gt;windows下可以用RADIUS test client。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/Xu-Jian/Radius/blob/master/1.Freeradius%20%E6%9C%8D%E5%8A%A1%E7%AB%AF%2B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7.md&#34;&gt;https://github.com/Xu-Jian/Radius/blob/master/1.Freeradius%20%E6%9C%8D%E5%8A%A1%E7%AB%AF%2B%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7.md&lt;/a&gt;&lt;/p&gt;
+- https://shadow1163.github.io/post/2018-01-19-freeradius-introduction/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>go mobile 简单示例</title>
+        <link>https://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</link>
+        <pubDate>Thu, 18 Jan 2018 15:18:35 +0800</pubDate>
+        
+        <guid>https://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</guid>
+        <description>Shadow1163&#39;s Blog https://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/ -&lt;p&gt;Go语言官方提供了一个编写手机APP的框架mobile, 看了看例子觉得还是比较简单的。&lt;/p&gt;
+&lt;h2 id=&#34;安装&#34;&gt;安装&lt;/h2&gt;
+&lt;p&gt;首先要配置好golang的环境，Android需要golang 1.5以上的版本， iOS的需要1.7.4以上的版本。然后配置好Android NDK，可以用Android Studio配置。iOS同样需要配置好Xcode。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go get golang.org/x/mobile/cmd/gomobile
+gomobile init &lt;span style=&#34;color:#75715e&#34;&gt;# it might take a few minutes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;由于网络的原因，有可能无法直接从官网上获取gomobile，也可以从github上获取。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;go get github.com/golang/mobile
+ln -s $GOAPTH/src/github.com/golang/mobile $GOAPTH/srcgolang.org/x/mobile
+go get golang.org/x/mobile/cmd/gomobile
+gomobile init &lt;span style=&#34;color:#75715e&#34;&gt;# it might take a few minutes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果NDK没有安装好，init可能不会报错，但是在build的时候也有提示。也可以指定NDK的目录。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;gomobile init -ndk &amp;lt;your ndk path&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;编译&#34;&gt;编译&lt;/h2&gt;
+&lt;p&gt;安装完成后就可以编译APK文件了，很简单的命令。这里编译官方提供的一个示例。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;gomobile build -target&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;android golang.org/x/mobile/example/basic
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;看下你的目录下有没有basic.apk文件。&lt;/p&gt;
+&lt;p&gt;以上只是对gomobile很简单的介绍，接下来就要写一些具体的页面来看看这个框架怎么样。&lt;/p&gt;
+&lt;p&gt;示例参考：https://github.com/golang/go/wiki/Mobile&lt;/p&gt;
+- https://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>jenkins 自动构建任务工具</title>
+        <link>https://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</link>
+        <pubDate>Wed, 17 Jan 2018 15:41:38 +0800</pubDate>
+        
+        <guid>https://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</guid>
+        <description>Shadow1163&#39;s Blog https://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/ -&lt;p&gt;有时候，Jenkins需要自动创建Job来构建运行某些任务，找了一些工具如下&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Job Generator&lt;/li&gt;
+&lt;li&gt;Job DSL&lt;/li&gt;
+&lt;li&gt;Jenkins job builder&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;job-generator&#34;&gt;Job Generator&lt;/h2&gt;
+&lt;p&gt;这是一个Jenkins的插件，安装之后可以在Web页面上可以创建一个“Job Generator”的模板任务，在添加参数和设置构建条件之后就可以手动构建任务。这个插件很长时间没有更新了，有一个问题是不能使用环境变量，包括Jenkins定义的。用来手动调试是可行的。&lt;/p&gt;
+&lt;p&gt;具体的配置可以参考：https://wiki.jenkins.io/display/JENKINS/Job+Generator+Plugin&lt;/p&gt;
+&lt;h2 id=&#34;job-dsl&#34;&gt;Job DSL&lt;/h2&gt;
+&lt;p&gt;这也是一个Jenkins的插件，使用Groovy脚本来创建任务，安装之后在某个任务上插入脚本片段就可以生成需要的Job。这个插件比较灵活，可以在脚本里控制所有的配置。&lt;/p&gt;
+&lt;p&gt;具体配置可参考：https://github.com/jenkinsci/job-dsl-plugin/wiki/Tutorial&amp;mdash;Using-the-Jenkins-Job-DSL&lt;/p&gt;
+&lt;h2 id=&#34;jenkins-job-builder&#34;&gt;Jenkins job builder&lt;/h2&gt;
+&lt;p&gt;这是一个python的模块，安装之后就可以在脚本中控制生成需要的Job，跟DSL的区别是不需要在任务中去插入脚本，也可以控制所有的配置，使用yaml文件要定义配置文件，任务模板等等。&lt;/p&gt;
+&lt;h3 id=&#34;安装&#34;&gt;安装&lt;/h3&gt;
+&lt;p&gt;源码安装&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;git clone https://github.com/openstack-infra/jenkins-job-builder
+sudo python setup.py install
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;也可以通过pip安装&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;pip install &lt;span style=&#34;color:#f92672&#34;&gt;--&lt;/span&gt;user jenkins&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;job&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;builder
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果有提示pbr版本过低，可以用pip重新安装最新版本即可&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;pip install pbr
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;sample&#34;&gt;sample&lt;/h3&gt;
+&lt;p&gt;创建sample.yaml文件并输入如下代码片段&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;- job:
+    name: Very basic freestyle job
+    project-type: freestyle
+    description: &#39;Just contais a very basic jenkins job that echos &amp;quot;Hello world&amp;quot;&#39;
+    builders:
+      - shell: echo &#39;Hello world!&#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后添加配置文件，可以参考官网的片段：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[job_builder]
+ignore_cache=True
+keep_descriptions=False
+include_path=.:scripts:~/git/
+recursive=False
+exclude=.*:manual:./development
+allow_duplicates=False
+
+[jenkins]
+user=jenkins
+password=1234567890abcdef1234567890abcdef
+url=https://jenkins.example.com
+query_plugins_info=False
+##### This is deprecated, use job_builder section instead
+#ignore_cache=True
+
+[plugin &amp;quot;hipchat&amp;quot;]
+authtoken=dummy
+
+[plugin &amp;quot;stash&amp;quot;]
+username=user
+password=pass
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以测试一下sample文件有没有问题&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;jenkins-jobs test ./sample1.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果没有问题就可以更新到Jenkins上了,在更新之前请确保用户名密码以及URL的正确&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;jenkins-jobs update ./sample1.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;更多的sample细节可参考：http://www.jeeatwork.com/?p=182
+Jenkins job builder的官网：https://docs.openstack.org/infra/jenkins-job-builder/&lt;/p&gt;
+- https://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/ - </description>
+        </item>
+    
+    
+    
+        <item>
+        <title>Jenkins 开启报错</title>
+        <link>https://shadow1163.github.io/post/jenkins-error/</link>
+        <pubDate>Tue, 16 Jan 2018 14:17:50 +0800</pubDate>
+        
+        <guid>https://shadow1163.github.io/post/jenkins-error/</guid>
+        <description>Shadow1163&#39;s Blog https://shadow1163.github.io/post/jenkins-error/ -&lt;p&gt;升级ubuntu17.10之后，打开jenkins之后就报了这个错误。查了一下资料是因为使用了java9的原因，降级到java8就正常了。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Stack trace
+javax.servlet.ServletException: java.lang.AssertionError: InstanceIdentity is missing its singleton
+at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:796)
+at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876)
+at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649)
+at org.kohsuke.stapler.Stapler.service(Stapler.java:238)
+at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291)
+at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239)
+at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135)
+at hudson.plugins.greenballs.GreenBallFilter.doFilter(GreenBallFilter.java:59)
+at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132)
+at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参考链接：
+&lt;a href=&#34;https://issues.jenkins-ci.org/browse/JENKINS-38057&#34;&gt;https://issues.jenkins-ci.org/browse/JENKINS-38057&lt;/a&gt;
+&lt;a href=&#34;https://groups.google.com/forum/#!topic/jenkinsci-users/xFFnIB2uK_8&#34;&gt;https://groups.google.com/forum/#!topic/jenkinsci-users/xFFnIB2uK_8&lt;/a&gt;&lt;/p&gt;
+- https://shadow1163.github.io/post/jenkins-error/ - </description>
+        </item>
+    
+    
+  </channel>
+</rss> 

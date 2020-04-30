@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/categories/</link>
+    <description>Recent content in Categories on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://shadow1163.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>kvm</title>
+      <link>https://shadow1163.github.io/categories/kvm/</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://shadow1163.github.io/categories/kvm/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

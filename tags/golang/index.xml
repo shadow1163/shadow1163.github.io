@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/tags/golang/</link>
+    <description>Recent content in Golang on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 04 May 2018 14:48:53 +0800</lastBuildDate>
+    
+	<atom:link href="https://shadow1163.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>httpstat – A Curl Statistics Tool to Check Website Performance</title>
+      <link>https://shadow1163.github.io/post/2018-05-04-intro-httpstat/</link>
+      <pubDate>Fri, 04 May 2018 14:48:53 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2018-05-04-intro-httpstat/</guid>
+      <description>The httpstat is a tool that reflects curl statistics in a fascinating and well-defined way.
+Install The httpstat has been implemented by golang or python.
+Install by python  Get it directly from its github repo using the wget commands as follows:  wget -c https://raw.githubusercontent.com/reorx/httpstat/master/httpstat.py  Using pip like this  sudo -H pip install httpstat Install by golang Notice httpstat requires Go 1.7.1 or later
+Install it like this</description>
+    </item>
+    
+    <item>
+      <title>Golang 并发定量协程数量</title>
+      <link>https://shadow1163.github.io/post/2018-03-23-gorouting-with-buffered-channel/</link>
+      <pubDate>Fri, 23 Mar 2018 10:15:12 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2018-03-23-gorouting-with-buffered-channel/</guid>
+      <description>最近需要用到golang做一个并发测试，之前大概看了一遍并发，对基本的流程有了一个了解了。我的需求是启动固定数量的客户端程序，然后等待程序运行完成后收集分析一下结果即可。参照网上的代码如下：
+package main import ( &amp;quot;fmt&amp;quot; ) func Afunction(ch chan int) { fmt.Println(&amp;quot;finish&amp;quot;) &amp;lt;-ch } func main() { ch := make(chan int, 10) for i := 0; i &amp;lt; 1000; i++ { ch &amp;lt;- 1 go Afunction(ch) } } 运行了一下感觉没问题就没仔细检查了。结果领导发现运行结果差10个，然后才来仔细看程序，在main函数中的for循环调用完函数后并不会阻塞等待被调用的函数执行完成。main函数退出后，并发的协程也会被自动回收，就导致了结果差10个。 解决的办法是在for循环后添加代码等待协程执行完成，然后退出。有两种方法。
+sync.WaitGroup package main import ( &amp;quot;fmt&amp;quot; &amp;quot;sync&amp;quot; ) var waitgroup sync.WaitGroup func Afunction(ch chan int) { fmt.Println(&amp;quot;finish&amp;quot;) &amp;lt;-ch waitgroup.Done() } func main() { ch := make(chan int, 10) for i := 0; i &amp;lt; 1000; i++ { ch &amp;lt;- 1 waitgroup.</description>
+    </item>
+    
+    <item>
+      <title>go mobile 简单示例</title>
+      <link>https://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</link>
+      <pubDate>Thu, 18 Jan 2018 15:18:35 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2018-01-18-go-mobile-introduce/</guid>
+      <description>Go语言官方提供了一个编写手机APP的框架mobile, 看了看例子觉得还是比较简单的。
+安装 首先要配置好golang的环境，Android需要golang 1.5以上的版本， iOS的需要1.7.4以上的版本。然后配置好Android NDK，可以用Android Studio配置。iOS同样需要配置好Xcode。
+go get golang.org/x/mobile/cmd/gomobile gomobile init # it might take a few minutes 由于网络的原因，有可能无法直接从官网上获取gomobile，也可以从github上获取。
+go get github.com/golang/mobile ln -s $GOAPTH/src/github.com/golang/mobile $GOAPTH/srcgolang.org/x/mobile go get golang.org/x/mobile/cmd/gomobile gomobile init # it might take a few minutes 如果NDK没有安装好，init可能不会报错，但是在build的时候也有提示。也可以指定NDK的目录。
+gomobile init -ndk &amp;lt;your ndk path&amp;gt; 编译 安装完成后就可以编译APK文件了，很简单的命令。这里编译官方提供的一个示例。
+gomobile build -target=android golang.org/x/mobile/example/basic 看下你的目录下有没有basic.apk文件。
+以上只是对gomobile很简单的介绍，接下来就要写一些具体的页面来看看这个框架怎么样。
+示例参考：https://github.com/golang/go/wiki/Mobile</description>
+    </item>
+    
+  </channel>
+</rss>

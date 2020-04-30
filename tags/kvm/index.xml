@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>KVM on Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/tags/kvm/</link>
+    <description>Recent content in KVM on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 30 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://shadow1163.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>access libvirt vms via telnet</title>
+      <link>https://shadow1163.github.io/post/2020-04-30-access-libvirt-vms-via-telnet/</link>
+      <pubDate>Thu, 30 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2020-04-30-access-libvirt-vms-via-telnet/</guid>
+      <description>2020年4月23日，ubuntu 20.04 LTS正式发布，我的桌面机也是第一时间做了升级，升级过程中一切正常，日常使用也没有什么变化。但是另外一台ubuntu server 18.04升级之后就没那么好运了，升级之后由于无法找到LVM卷不能启动，只得用ubuntu server 20.04重装了，带来的问题是部署在这台server的KVM虚拟机没了。在配置重装的KVM主机时，遇到了一个问题是virt-manager最新版2.2.1配置serial串口时，没有了network选项。查询了virt-manager的升级日志，也没有发现这个功能被取消了。但是这个选项在ubuntu 18.04上的virt-manager 1.5.1上的确是可以正常配置的。在网络上搜索发现了可以通过XML来设置。代码片段如下：
+&amp;lt;devices&amp;gt; &amp;lt;serial type=&amp;quot;tcp&amp;quot;&amp;gt; &amp;lt;source mode=&amp;quot;connect&amp;quot; host=&amp;quot;0.0.0.0&amp;quot; service=&amp;quot;4555&amp;quot;/&amp;gt; &amp;lt;protocol type=&amp;quot;telnet&amp;quot;/&amp;gt; &amp;lt;target port=&amp;quot;0&amp;quot;/&amp;gt; &amp;lt;/serial&amp;gt; &amp;lt;/devices&amp;gt; 在virt-manager界面，进入&amp;quot;edit&amp;rdquo;-&amp;gt;&amp;quot;Prefenences&amp;rdquo;， 在general选项卡上点击&amp;quot;Enable XML editing&amp;rdquo;。然后在新创建的serial端口上进入XML配置，复制粘贴上面的配置片段，修改相应的端口号，重启KVM虚拟机后应该可以用telnet访问KVM的串口了。
+Link: https://lukas.zapletalovi.com/2018/02/accessing-libvirt-vms-via-telnet.html</description>
+    </item>
+    
+    <item>
+      <title>MacOS Mojave install on KVM</title>
+      <link>https://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</link>
+      <pubDate>Wed, 25 Jul 2018 16:10:35 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2018-07-25-macos-mojave-install-on-kvm/</guid>
+      <description>最近项目上需要在最新的MacOS 10.14上测试, 以前也在VMware ESXi上部署过MacOS 10.12，由于vmware unlocker宣布不在支持ESXi，找到另外一个KVM项目支持MacOS 10.14，那么就在KVM上部署试试吧。
+Install Clone source
+git clone https://github.com/kholia/OSX-KVM Install QEMU
+sudo apt-get install qemu uml-utilities libguestfs-tools # First edit /etc/apt/sources.list to add/uncomment deb-src lines sudo apt-get update sudo apt-get build-dep qemu git clone https://github.com/kholia/qemu.git cd qemu git checkout macOS git submodule init git submodule update --recursive ./configure --prefix=/home/$(whoami)/QEMU --target-list=x86_64-softmmu --audio-drv-list=pa $ make clean; make -j8; make install 在编译的时候有可能报错，&amp;ldquo;error: static declaration of memfd_create follows non-static declaration&amp;rdquo;, 可参考这个补丁。</description>
+    </item>
+    
+  </channel>
+</rss>

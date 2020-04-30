@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jenkins on Shadow1163&#39;s Blog</title>
+    <link>https://shadow1163.github.io/tags/jenkins/</link>
+    <description>Recent content in Jenkins on Shadow1163&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 17 Jan 2018 15:41:38 +0800</lastBuildDate>
+    
+	<atom:link href="https://shadow1163.github.io/tags/jenkins/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>jenkins 自动构建任务工具</title>
+      <link>https://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</link>
+      <pubDate>Wed, 17 Jan 2018 15:41:38 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/2018-01-17-jenkins-job-builder-example/</guid>
+      <description>有时候，Jenkins需要自动创建Job来构建运行某些任务，找了一些工具如下
+ Job Generator Job DSL Jenkins job builder  Job Generator 这是一个Jenkins的插件，安装之后可以在Web页面上可以创建一个“Job Generator”的模板任务，在添加参数和设置构建条件之后就可以手动构建任务。这个插件很长时间没有更新了，有一个问题是不能使用环境变量，包括Jenkins定义的。用来手动调试是可行的。
+具体的配置可以参考：https://wiki.jenkins.io/display/JENKINS/Job+Generator+Plugin
+Job DSL 这也是一个Jenkins的插件，使用Groovy脚本来创建任务，安装之后在某个任务上插入脚本片段就可以生成需要的Job。这个插件比较灵活，可以在脚本里控制所有的配置。
+具体配置可参考：https://github.com/jenkinsci/job-dsl-plugin/wiki/Tutorial&amp;mdash;Using-the-Jenkins-Job-DSL
+Jenkins job builder 这是一个python的模块，安装之后就可以在脚本中控制生成需要的Job，跟DSL的区别是不需要在任务中去插入脚本，也可以控制所有的配置，使用yaml文件要定义配置文件，任务模板等等。
+安装 源码安装
+git clone https://github.com/openstack-infra/jenkins-job-builder sudo python setup.py install 也可以通过pip安装
+pip install --user jenkins-job-builder 如果有提示pbr版本过低，可以用pip重新安装最新版本即可
+pip install pbr sample 创建sample.yaml文件并输入如下代码片段
+- job: name: Very basic freestyle job project-type: freestyle description: &#39;Just contais a very basic jenkins job that echos &amp;quot;Hello world&amp;quot;&#39; builders: - shell: echo &#39;Hello world!&#39; 然后添加配置文件，可以参考官网的片段：</description>
+    </item>
+    
+    <item>
+      <title>Jenkins 开启报错</title>
+      <link>https://shadow1163.github.io/post/jenkins-error/</link>
+      <pubDate>Tue, 16 Jan 2018 14:17:50 +0800</pubDate>
+      
+      <guid>https://shadow1163.github.io/post/jenkins-error/</guid>
+      <description>升级ubuntu17.10之后，打开jenkins之后就报了这个错误。查了一下资料是因为使用了java9的原因，降级到java8就正常了。
+Stack trace javax.servlet.ServletException: java.lang.AssertionError: InstanceIdentity is missing its singleton at org.kohsuke.stapler.Stapler.tryInvoke(Stapler.java:796) at org.kohsuke.stapler.Stapler.invoke(Stapler.java:876) at org.kohsuke.stapler.Stapler.invoke(Stapler.java:649) at org.kohsuke.stapler.Stapler.service(Stapler.java:238) at javax.servlet.http.HttpServlet.service(HttpServlet.java:729) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:291) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52) at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:239) at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206) at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:135) at hudson.plugins.greenballs.GreenBallFilter.doFilter(GreenBallFilter.java:59) at hudson.util.PluginServletFilter$1.doFilter(PluginServletFilter.java:132) at hudson.util.PluginServletFilter.doFilter(PluginServletFilter.java:126) 参考链接： https://issues.jenkins-ci.org/browse/JENKINS-38057 https://groups.google.com/forum/#!topic/jenkinsci-users/xFFnIB2uK_8</description>
+    </item>
+    
+  </channel>
+</rss>

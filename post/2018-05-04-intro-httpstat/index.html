@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html><head>
+<title>httpstat – A Curl Statistics Tool to Check Website Performance</title>
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+
+<script src="/vendor/js/jquery.min.js" ></script>
+<script src="/vendor/js/popper.min.js" ></script>
+<script src="/vendor/js/bootstrap.min.js" ></script>
+<script src="/vendor/js/smooth-scroll.polyfills.min.js" ></script>
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+<script src="/vendor/js/vue.min.js" ></script>
+
+
+
+
+<link rel="stylesheet" href="https://shadow1163.github.io/scss/journal.min.56b67b8b01d7cd1015ed14414fd2fc33ebfb2e8413dcbc47c5cd734544c92cd7.css" integrity="sha256-VrZ7iwHXzRAV7RRBT9L8M&#43;v7LoQT3LxHxc1zRUTJLNc=" media="screen">
+
+
+
+<link rel="stylesheet" href="https://shadow1163.github.io/scss/dark-mode.min.5a2bbd1758c83affd639a91fbfd5cc681b1a5574df99442825c444dd40504b13.css" integrity="sha256-Wiu9F1jIOv/WOakfv9XMaBsaVXTfmUQoJcRE3UBQSxM=" media="screen">
+
+
+<script src="https://shadow1163.github.io/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Lora|Montserrat|Fira+Mono|Noto+Serif+SC|Material+Icons");
+</script>
+
+<script src="https://shadow1163.github.io/js/table.js"></script>
+
+
+
+
+<script src="https://shadow1163.github.io/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: 'your client id',
+  clientSecret: 'your client secret',
+  repo: 'repo name',
+  owner: 'user',
+  admin: ['user'],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+</head><body>
+    	<div id="app"><div ref="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="https://shadow1163.github.io">
+    
+        <div class="nav-title">
+            Shadow1163&#39;s Blog
+        </div>
+        
+        <div class="nav-subtitle">
+            Have Fun
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 Shadow1163&#39;s Blog
+	
+    </div>
+    
+</div><div ref="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#install" v-on:click="closeDrawer" id="install-nav">
+										 Install
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#install-by-python" v-on:click="closeDrawer" id="install-by-python-nav">
+										 Install by python
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#install-by-golang" v-on:click="closeDrawer" id="install-by-golang-nav">
+										 Install by golang
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#notice" v-on:click="closeDrawer" id="notice-nav">
+										 Notice
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#how-to-use" v-on:click="closeDrawer" id="how-to-use-nav">
+										 How to use
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#demo" v-on:click="closeDrawer" id="demo-nav">
+										 Demo
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#use-it-in-golang-source-code" v-on:click="closeDrawer" id="use-it-in-golang-source-code-nav">
+										 Use it in golang source code
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a class="pagination-action" v-on:click="toggleDarkMode">
+            <i class="material-icons pagination-action-icon" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons pagination-action-icon" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </a>
+        
+        
+    </div>
+</div><div class="single-column-drawer-container" ref="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#install" v-on:click="closeDrawer" id="install-nav">
+										 Install
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#install-by-python" v-on:click="closeDrawer" id="install-by-python-nav">
+										 Install by python
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#install-by-golang" v-on:click="closeDrawer" id="install-by-golang-nav">
+										 Install by golang
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#notice" v-on:click="closeDrawer" id="notice-nav">
+										 Notice
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#how-to-use" v-on:click="closeDrawer" id="how-to-use-nav">
+										 How to use
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#demo" v-on:click="closeDrawer" id="demo-nav">
+										 Demo
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+				
+				
+					
+						
+						
+							<ul>
+						
+							<ul>
+						
+						
+								<li>
+				 					<a href="#use-it-in-golang-source-code" v-on:click="closeDrawer" id="use-it-in-golang-source-code-nav">
+										 Use it in golang source code
+									</a>
+								</li>
+						
+							</ul>
+						
+							</ul>
+						
+					
+				
+			
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav ref="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div ref="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a ref="navTitle" class="navbar-brand" href="https://shadow1163.github.io">
+            Shadow1163&#39;s Blog
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" v-on:click="toggleDarkMode">
+            <i class="material-icons" v-if="isDarkMode">
+                brightness_4
+            </i>
+            <i class="material-icons" v-else="isDarkMode">
+                brightness_7
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" ref="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="https://shadow1163.github.io">
+        <div class="single-column-header-title">Shadow1163&#39;s Blog</div>
+        
+        <div class="single-column-header-subtitle">Have Fun</div>
+        
+
+    </a>
+</div>
+            <div id="content">
+<div ref="streamContainer" class="stream-container">
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                 style="background-image: url('https://shadow1163.github.io')">
+                <div class="post-title">
+                    httpstat – A Curl Statistics Tool to Check Website Performance
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2018-05-04 14:48
+                        </time>
+                        
+
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/golang">golang</a>
+                                &nbsp;
+                            
+                                <a href="/tags/httpstat">httpstat</a>
+                                &nbsp;
+                            
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                <div class="post-body">
+                    <p>The httpstat is a tool that reflects curl statistics in a fascinating and well-defined way.</p>
+<p><img src="/images/example.png" alt="example"></p>
+<h2 id="install">Install</h2>
+<p>The httpstat has been implemented by golang or python.</p>
+<h3 id="install-by-python">Install by python</h3>
+<ul>
+<li>Get it directly from its github repo using the wget commands as follows:</li>
+</ul>
+<pre><code>wget -c https://raw.githubusercontent.com/reorx/httpstat/master/httpstat.py
+</code></pre><ul>
+<li>Using pip like this</li>
+</ul>
+<pre><code>sudo -H pip install httpstat
+</code></pre><h3 id="install-by-golang">Install by golang</h3>
+<h4 id="notice">Notice</h4>
+<p>httpstat requires Go 1.7.1 or later</p>
+<p>Install it like this</p>
+<pre><code>go get -u github.com/davecheney/httpstat
+</code></pre><h2 id="how-to-use">How to use</h2>
+<p>List help info</p>
+<pre><code>httpstat --help
+</code></pre><p>Access watchguard website</p>
+<pre><code>httpstat www.watchguard.com
+
+Connected to 104.17.60.6:443
+
+HTTP/2.0 200 OK
+Server: cloudflare
+Cache-Control: public, max-age=1800
+Cf-Cache-Status: MISS
+Cf-Ray: 415919205adc930c-SJC
+Content-Language: en
+Content-Type: text/html; charset=utf-8
+Date: Fri, 04 May 2018 07:01:48 GMT
+Expect-Ct: max-age=604800, report-uri=&quot;https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct&quot;
+Expires: Sun, 19 Nov 1978 05:00:00 GMT
+Last-Modified: Fri, 04 May 2018 06:56:19 GMT
+Link: &lt;https://www.watchguard.com&gt;; rel=&quot;canonical&quot;,&lt;https://www.watchguard.com/&gt;; rel=&quot;shortlink&quot;
+Set-Cookie: __cfduid=dd1ef17a31a0b0aacf4df8cdbfe1d38ec1525417308; expires=Sat, 04-May-19 07:01:48 GMT; path=/; domain=.watchguard.com; HttpOnly,BIGipServerwatchguard.com-p443=2348340278.47873.0000; expires=Fri, 04-May-2018 19:00:56 GMT; path=/; Httponly; Secure
+Vary: Cookie,Accept-Encoding
+Via: 1.1 varnish-v4
+X-Ah-Environment: prod
+X-Cache: HIT
+X-Cache-Hits: 105
+X-Drupal-Cache: HIT
+X-Frame-Options: SAMEORIGIN
+X-Request-Id: v-5a0ca084-4f68-11e8-8ffd-22000a6746ba
+X-Varnish: 16916405 16916090
+
+Body discarded
+
+  DNS Lookup   TCP Connection   TLS Handshake   Server Processing   Content Transfer
+[      9ms  |         183ms  |        438ms  |            324ms  |           189ms  ]
+            |                |               |                   |                  |
+   namelookup:9ms            |               |                   |                  |
+                       connect:192ms         |                   |                  |
+                                   pretransfer:630ms             |                  |
+                                                     starttransfer:955ms            |
+                                                                                total:1144ms
+</code></pre><h2 id="demo">Demo</h2>
+<p>Now, we would create a demo to verify the Server Processing time is accurately or not. We would create a http server, listened to a port, sleep some time. In the end, verify the time what show by httpstat</p>
+<pre><code>package main
+
+import (
+	&quot;net/http&quot;
+	&quot;strings&quot;
+	&quot;time&quot;
+)
+
+func sayHello(w http.ResponseWriter, r *http.Request) {
+	message := r.URL.Path
+	message = strings.TrimPrefix(message, &quot;/&quot;)
+	message = &quot;Hello &quot; + message
+	time.Sleep(2 * time.Second)
+	w.Write([]byte(message))
+}
+func main() {
+	http.HandleFunc(&quot;/&quot;, sayHello)
+	if err := http.ListenAndServe(&quot;:8080&quot;, nil); err != nil {
+		panic(err)
+	}
+}
+</code></pre><p>Run the code, it would listened to 8080 port, and sleep 2 seconds.</p>
+<p>Accsss the http service using httpstat</p>
+<pre><code>httpstat http://127.0.0.1:8080
+
+Connected to 127.0.0.1:8080
+
+HTTP/1.1 200 OK
+Content-Length: 6
+Content-Type: text/plain; charset=utf-8
+Date: Fri, 04 May 2018 07:18:42 GMT
+
+Body discarded
+
+   DNS Lookup   TCP Connection   Server Processing   Content Transfer
+[       0ms  |           4ms  |           2002ms  |             0ms  ]
+             |                |                   |                  |
+    namelookup:0ms            |                   |                  |
+                        connect:4ms               |                  |
+                                      starttransfer:2006ms           |
+                                                                 total:2007ms
+</code></pre><p>You can see the Server Processing time is 2002ms.</p>
+<h2 id="use-it-in-golang-source-code">Use it in golang source code</h2>
+<p>We can use other golang package &ldquo;github.com/tcnksm/go-httpstat&rdquo;, it can show the Server Processing in golang code.</p>
+<p>Example is here</p>
+<pre><code>package main
+
+import (
+	&quot;io&quot;
+	&quot;io/ioutil&quot;
+	&quot;log&quot;
+	&quot;net/http&quot;
+	&quot;time&quot;
+
+	httpstat &quot;github.com/tcnksm/go-httpstat&quot;
+)
+
+func main() {
+	req, err := http.NewRequest(&quot;GET&quot;, &quot;http://127.0.0.1:8080&quot;, nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Create a httpstat powered context
+	var result httpstat.Result
+	ctx := httpstat.WithHTTPStat(req.Context(), &amp;result)
+	req = req.WithContext(ctx)
+	// Send request by default HTTP client
+	client := http.DefaultClient
+	res, err := client.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if _, err := io.Copy(ioutil.Discard, res.Body); err != nil {
+		log.Fatal(err)
+	}
+	res.Body.Close()
+	// end := time.Now()
+	// Show the results
+	log.Printf(&quot;DNS lookup: %d ms&quot;, int(result.DNSLookup/time.Millisecond))
+	log.Printf(&quot;TCP connection: %d ms&quot;, int(result.TCPConnection/time.Millisecond))
+	log.Printf(&quot;TLS handshake: %d ms&quot;, int(result.TLSHandshake/time.Millisecond))
+	log.Printf(&quot;Server processing: %d ms&quot;, int(result.ServerProcessing/time.Millisecond))
+	log.Printf(&quot;Content transfer: %d ms&quot;, int(result.ContentTransfer(time.Now())/time.Millisecond))
+}
+
+</code></pre><p>Run it, you can see this.</p>
+<pre><code>go run httpstatExample.go
+2018/05/04 15:27:58 DNS lookup: 0 ms
+2018/05/04 15:27:58 TCP connection: 1 ms
+2018/05/04 15:27:58 TLS handshake: 0 ms
+2018/05/04 15:27:58 Server processing: 2001 ms
+2018/05/04 15:27:58 Content transfer: 8 ms
+</code></pre>
+                    
+                    <HR width="100%" id="EOF">
+                    <p style="color:#777;">Last modified on 2018-05-04</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="https://shadow1163.github.io/post/2018-07-12-openwrt-on-vmware-workstation-esxi/">
+                    Next<br>openwrt on vmware workstation &amp; ESXi
+                </a>
+                
+                
+                
+                <a class="older-posts" href="https://shadow1163.github.io/post/2018-03-23-gorouting-with-buffered-channel/">
+                    Previous<br>Golang 并发定量协程数量
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://amazingrise.net">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	2020 Shadow1163&#39;s Blog
+	</div>
+    	</div>
+    <script src="https://shadow1163.github.io/js/journal.js"></script>
+    </body>
+</html>
